@@ -7,4 +7,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="laci">#DD06091A</color>
+    <color name="mor">#371D53</color>
+    <color name="acik_mor">#745B8c</color>
+    <color name="beyaz">#EBE7EE</color>
+    <color name="turuncu">#D13634</color>
+
 </resources>

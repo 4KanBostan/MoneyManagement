@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_nav"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.furkanbostan.moneymanagement.ui.fragment.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/calendarFragment"
+        android:name="com.furkanbostan.moneymanagement.ui.fragment.CalendarFragment"
+        android:label="fragment_calendar"
+        tools:layout="@layout/fragment_calendar" />
+    <fragment
+        android:id="@+id/goalsFragment"
+        android:name="com.furkanbostan.moneymanagement.ui.fragment.GoalsFragment"
+        android:label="fragment_goals"
+        tools:layout="@layout/fragment_goals" />
+    <fragment
+        android:id="@+id/accountsFragment"
+        android:name="com.furkanbostan.moneymanagement.ui.fragment.AccountsFragment"
+        android:label="fragment_accounts"
+        tools:layout="@layout/fragment_accounts" />
+    <fragment
+        android:id="@+id/othersFragment"
+        android:name="com.furkanbostan.moneymanagement.ui.fragment.OthersFragment"
+        android:label="fragment_others"
+        tools:layout="@layout/fragment_others" />
+</navigation>

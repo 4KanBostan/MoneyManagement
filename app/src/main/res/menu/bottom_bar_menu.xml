@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/calendarFragment"
+        android:icon="@drawable/calendar_icon_bottom_bar"
+        android:title="Calendar" />
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/home_icon_bottom_bar"
+        android:title="Home" />
+    <item
+        android:id="@+id/goalsFragment"
+        android:title="Goals" />
+    <item
+        android:id="@+id/accountsFragment"
+        android:title="Accounts" />
+    <item
+        android:id="@+id/othersFragment"
+        android:title="Other" />
+</menu>

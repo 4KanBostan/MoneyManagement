@@ -12,6 +12,7 @@
     <color name="mor">#371D53</color>
     <color name="acik_mor">#745B8c</color>
     <color name="beyaz">#EBE7EE</color>
+    <color name="soluk_beyaz">#60EBE7EE</color>
     <color name="turuncu">#D13634</color>
 
 </resources>

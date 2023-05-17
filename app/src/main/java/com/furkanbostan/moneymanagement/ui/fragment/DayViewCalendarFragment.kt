@@ -28,7 +28,7 @@ class DayViewCalendarFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.example.setOnClickListener {
+       /* binding.example.setOnClickListener {
             val tabs = activity?.findViewById<TabLayout>(R.id.tablayout)
             tabs?.getTabAt(1)?.select()
             val sp :SharedPreferences= this.requireActivity().getSharedPreferences("deneme",Context.MODE_PRIVATE)
@@ -36,7 +36,7 @@ class DayViewCalendarFragment : Fragment() {
             edit.putString("d1",sp.getString("d1","assad").toString())
             edit.commit()
 
-        }
+        }*/
     }
 
 

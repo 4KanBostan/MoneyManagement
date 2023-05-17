@@ -7,15 +7,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.children
+import androidx.core.view.marginStart
 import com.furkanbostan.moneymanagement.R
 import com.furkanbostan.moneymanagement.databinding.CalendarDayLayoutBinding
 import com.furkanbostan.moneymanagement.databinding.CalendarHeaderBinding
 import com.furkanbostan.moneymanagement.databinding.FragmentCalendarViewCalendarBinding
 import com.furkanbostan.moneymanagement.util.displayText
 import com.furkanbostan.moneymanagement.util.setTextColorRes
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.kizitonwose.calendar.core.*
 import com.kizitonwose.calendar.view.MonthDayBinder
 import com.kizitonwose.calendar.view.MonthHeaderFooterBinder
@@ -27,13 +30,17 @@ import java.time.YearMonth
 
 class CalendarViewCalendarFragment : Fragment() {
     private lateinit var binding : FragmentCalendarViewCalendarBinding
+    private lateinit var dialog: BottomSheetDialog
     private val selectedDates = mutableSetOf<LocalDate>()
     private val today = LocalDate.now()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         binding= FragmentCalendarViewCalendarBinding.inflate(layoutInflater,container,false)
         return binding.root
     }
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val currentMonth = YearMonth.now()
@@ -60,6 +67,8 @@ class CalendarViewCalendarFragment : Fragment() {
                 view.setOnClickListener {
                     if (day.position == DayPosition.MonthDate) {
                         dateClicked(date = day.date)
+                        ShowDayFragment(day.date).show(childFragmentManager,"dialog")
+                        //openBottomSheet()
                     }
                 }
             }
@@ -103,7 +112,8 @@ class CalendarViewCalendarFragment : Fragment() {
                     textView.setTextColorRes(R.color.acik_mor)
                 }
                 today == date -> {
-                    layout.setBackgroundResource(R.drawable.calendar_today_bg)
+                    //layout.setBackgroundResource(R.drawable.calendar_today_bg)
+                    textView.setTextColorRes(R.color.black)
                 }
                 else -> {
                     layout.setBackgroundResource(R.color.acik_mor)
@@ -154,6 +164,13 @@ class CalendarViewCalendarFragment : Fragment() {
                 }
             }
         }
+    }
+
+    fun openBottomSheet(){
+        val dialogView = layoutInflater.inflate(R.layout.layout_bottom_sheet,null)
+        dialog = BottomSheetDialog(requireContext(),R.style.BottomSheetDialogTheme)
+        dialog.setContentView(dialogView)
+        dialog.show()
     }
 
 }

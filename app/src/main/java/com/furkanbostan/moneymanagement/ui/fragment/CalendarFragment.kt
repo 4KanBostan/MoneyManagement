@@ -13,7 +13,7 @@ import com.furkanbostan.moneymanagement.ui.adapter.CalendarViewPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 
 
-class CalendarFragment : Fragment() {
+class CalendarFragment : Fragment(){
     private lateinit var binding: FragmentCalendarBinding
     private val fragmentListesi = ArrayList<Fragment>()
     private val fragmentADları= ArrayList<String>()
@@ -38,8 +38,8 @@ class CalendarFragment : Fragment() {
 
 
     private fun tabLayoutConf(){
-        fragmentListesi.add(DayViewCalendarFragment())
         fragmentListesi.add(CalendarViewCalendarFragment())
+        fragmentListesi.add(DayViewCalendarFragment())
         fragmentListesi.add(MonthViewCalendarFragment())
         fragmentListesi.add(YearViewCalendarFragment())
         viewPagerAdapter= CalendarViewPagerAdapter(fragmentListesi,childFragmentManager, lifecycle = lifecycle)
@@ -49,9 +49,8 @@ class CalendarFragment : Fragment() {
          tabview.getTabAt(1)?.text ="Second"
          tabview.getTabAt(2)?.text ="Thirt"
  */
-
-        fragmentADları.add("Day")
         fragmentADları.add("Calendar")
+        fragmentADları.add("Day")
         fragmentADları.add("Month")
         fragmentADları.add("Year")
 

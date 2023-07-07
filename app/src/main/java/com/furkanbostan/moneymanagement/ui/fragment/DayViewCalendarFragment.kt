@@ -25,9 +25,6 @@ import java.time.LocalDate
 class DayViewCalendarFragment : Fragment() {
     private lateinit var binding: FragmentDayViewCalendarBinding
     private lateinit var parentRecyclerView: RecyclerView
-    private lateinit var parentAdapter: DayViewParentAdapter
-    private lateinit var childRecyclerView:RecyclerView
-    private lateinit var childAdapter:DayViewChildAdapter
     private lateinit var transactionList :ArrayList<Transaction>
     private lateinit var parentList: ArrayList<ParentRecycleView>
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -64,10 +61,12 @@ class DayViewCalendarFragment : Fragment() {
         val p = ParentRecycleView(date.minusDays(2),transactionList)
         val p1 = ParentRecycleView(date.plusDays(1),transactionList)
         val p2 = ParentRecycleView(date.plusDays(2),transactionList)
+        val p3 = ParentRecycleView(date.plusDays(3),transactionList)
         parentList=ArrayList()
         parentList.add(p)
         parentList.add(p1)
         parentList.add(p2)
+        parentList.add(p3)
 
         return parentList
     }

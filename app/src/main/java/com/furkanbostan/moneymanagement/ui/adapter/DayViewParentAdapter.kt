@@ -1,6 +1,7 @@
 package com.furkanbostan.moneymanagement.ui.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -27,6 +28,9 @@ class DayViewParentAdapter(val itemList:List<ParentRecycleView>): RecyclerView.A
         holder.binding.childReyclerView.apply {
             layoutManager = LinearLayoutManager(holder.binding.childReyclerView.context,RecyclerView.VERTICAL,false)
             adapter = DayViewChildAdapter(context,item.itemList)
+        }
+        holder.binding.dateTv.setOnClickListener {
+            holder.binding.childReyclerView.visibility = if (holder.binding.childReyclerView.isShown) View.GONE else View.VISIBLE
         }
     }
 }

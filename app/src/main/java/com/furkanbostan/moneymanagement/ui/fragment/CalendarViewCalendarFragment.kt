@@ -44,8 +44,8 @@ class CalendarViewCalendarFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val currentMonth = YearMonth.now()
-        val startMonth = currentMonth.minusMonths(100)
-        val endMonth = currentMonth.plusMonths(100)
+        val startMonth = currentMonth.minusMonths(10)
+        val endMonth = currentMonth.plusMonths(10)
         val daysOfWeek = daysOfWeek(firstDayOfWeek = DayOfWeek.MONDAY)
         setupCalendarHeader(daysOfWeek)
         setupMonthCalendar(startMonth, endMonth, currentMonth, daysOfWeek)

@@ -69,4 +69,10 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.15.1'
+
+    //MPAndroidChart
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    //OmegaREcyclerView
+    implementation 'com.github.Omega-R:OmegaRecyclerView:1.9.7@aar'
+
 }

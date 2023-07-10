@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/calendar_card_background"
+    android:padding="15dp">
+
+    <TextView
+        android:id="@+id/homeAccountName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TOPLAM BAKİYE"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="35dp"
+        android:text="Gelir"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toStartOf="@+id/totalBalance"
+        app:layout_constraintTop_toBottomOf="@+id/totalBalance" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="16dp"
+        android:text="Gider"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/totalBalance"
+        app:layout_constraintTop_toBottomOf="@+id/totalBalance" />
+
+    <TextView
+        android:id="@+id/totalIncome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="3000"
+        android:textColor="#FAF7F7"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/textView12"
+        app:layout_constraintStart_toStartOf="@+id/textView12"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+    <TextView
+        android:id="@+id/totalExpense"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="1500"
+        android:textColor="#FBF9F9"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/textView13"
+        app:layout_constraintStart_toStartOf="@+id/textView13"
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+    <TextView
+        android:id="@+id/totalBalance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="45000"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/homeAccountName"
+        app:layout_constraintStart_toStartOf="@+id/homeAccountName"
+        app:layout_constraintTop_toBottomOf="@+id/homeAccountName" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/arrow_bg"
+        app:layout_constraintBottom_toBottomOf="@+id/totalIncome"
+        app:layout_constraintEnd_toStartOf="@+id/textView12"
+        app:layout_constraintTop_toTopOf="@+id/textView12"
+        app:srcCompat="@drawable/baseline_arrow_upward_24" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/totalExpense"
+        app:layout_constraintEnd_toStartOf="@+id/textView13"
+        app:layout_constraintTop_toTopOf="@+id/textView13"
+        app:srcCompat="@drawable/baseline_arrow_downward_24"
+        android:background="@drawable/arrow_bg"/>
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:text="₺"
+        android:textColor="#F6F3F3"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/totalBalance"
+        app:layout_constraintEnd_toStartOf="@+id/totalBalance"
+        app:layout_constraintTop_toTopOf="@+id/totalBalance" />
+</androidx.constraintlayout.widget.ConstraintLayout>

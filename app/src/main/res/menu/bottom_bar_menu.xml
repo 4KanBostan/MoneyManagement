@@ -10,11 +10,12 @@
         android:icon="@drawable/home_icon_bottom_bar"
         android:title="Home" />
     <item
+        android:id="@+id/placeHolder"
+        android:title="" />
+    <item
         android:id="@+id/goalsFragment"
         android:title="Goals" />
-    <item
-        android:id="@+id/accountsFragment"
-        android:title="Accounts" />
+
     <item
         android:id="@+id/othersFragment"
         android:title="Other" />

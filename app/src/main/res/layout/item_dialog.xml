@@ -2,9 +2,9 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:cardBackgroundColor="@color/soluk_beyaz"
-    android:outlineAmbientShadowColor="@color/soluk_beyaz"
-    android:outlineSpotShadowColor="@color/soluk_beyaz"
+    app:cardBackgroundColor="@color/white"
+    android:outlineAmbientShadowColor="@color/white"
+    android:outlineSpotShadowColor="@color/white"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="4dp">
@@ -35,9 +35,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.38">
-
-        </TextView>
+            app:layout_constraintVertical_bias="0.38"></TextView>
 
         <TextView
             android:id="@+id/comment_tv"
@@ -49,9 +47,7 @@
             android:textColor="#1E1C1C"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/categoryImageView"
-            app:layout_constraintTop_toTopOf="parent">
-
-        </TextView>
+            app:layout_constraintTop_toTopOf="parent"></TextView>
 
         <TextView
             android:id="@+id/account_tv"
@@ -61,9 +57,7 @@
             android:text="Banka kartı"
             android:textColor="#272020"
             app:layout_constraintStart_toStartOf="@+id/comment_tv"
-            app:layout_constraintTop_toBottomOf="@+id/comment_tv">
-
-        </TextView>
+            app:layout_constraintTop_toBottomOf="@+id/comment_tv"></TextView>
 
         <TextView
             android:id="@+id/dialog_date_tv"
@@ -82,7 +76,6 @@
             android:background="@color/laci"
             android:layout_marginHorizontal="25dp"
             app:layout_constraintTop_toBottomOf="@+id/account_tv"
-            tools:layout_editor_absoluteX="0dp">
-        </View>
+            tools:layout_editor_absoluteX="0dp"></View>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

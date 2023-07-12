@@ -5,14 +5,43 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.furkanbostan.moneymanagement.R
+import com.furkanbostan.moneymanagement.databinding.FragmentGoalsBinding
+import com.furkanbostan.moneymanagement.ui.adapter.GoalsAdapter
+import com.furkanbostan.moneymanagement.ui.fragment.model.Goals
+import java.time.LocalDate
 
 
 class GoalsFragment : Fragment() {
-
+        private lateinit var binding:FragmentGoalsBinding
+        private lateinit var goalsList:ArrayList<Goals>
+        private lateinit var localDate: LocalDate
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_goals, container, false)
+        binding=FragmentGoalsBinding.inflate(layoutInflater,container,false)
+        setRcv()
+        return binding.root
+    }
+
+
+
+    fun setRcv(){
+        binding.goalsRecycler.apply {
+            layoutManager=LinearLayoutManager(context,RecyclerView.VERTICAL,false)
+            adapter=GoalsAdapter(context,addItem())
+        }
+    }
+
+    fun addItem():ArrayList<Goals>{
+        localDate= LocalDate.now()
+        goalsList= ArrayList()
+        goalsList.add(Goals("Araba",50,2500,4000,R.drawable.car,localDate))
+        goalsList.add(Goals("Araba",50,2500,4000,R.drawable.car,localDate))
+        goalsList.add(Goals("Araba",50,2500,4000,R.drawable.car,localDate))
+        goalsList.add(Goals("Araba",50,2500,4000,R.drawable.car,localDate))
+
+        return goalsList
     }
 
 

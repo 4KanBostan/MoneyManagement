@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+ <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/laci"
@@ -154,6 +169,67 @@
        app:layout_constraintEnd_toStartOf="@+id/imageView6"
        app:layout_constraintTop_toTopOf="@+id/imageView6" />
 
+     <androidx.recyclerview.widget.RecyclerView
+         android:id="@+id/home_trans_recyc"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginStart="8dp"
+         android:layout_marginTop="16dp"
+         android:layout_marginEnd="8dp"
+         app:layout_constraintEnd_toStartOf="@+id/constraintLayout"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
+     <androidx.cardview.widget.CardView
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="8dp"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toBottomOf="@+id/textView21">
+
+         <androidx.recyclerview.widget.RecyclerView
+             android:id="@+id/home_goals_recy"
+             android:background="@color/laci"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent" />
+     </androidx.cardview.widget.CardView>
+
+     <TextView
+         android:id="@+id/textView21"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginStart="16dp"
+         android:layout_marginTop="16dp"
+         android:text="Hedefler"
+         android:textColor="@color/beyaz"
+         android:textSize="16sp"
+         android:textStyle="bold"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toBottomOf="@+id/home_trans_recyc" />
+
+     <TextView
+         android:id="@+id/textView22"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="Hepsini Gör"
+         android:textColor="@color/beyaz"
+         app:layout_constraintBottom_toBottomOf="@+id/imageView7"
+         app:layout_constraintEnd_toStartOf="@+id/imageView7"
+         app:layout_constraintTop_toTopOf="@+id/imageView7" />
+
+     <ImageView
+         android:id="@+id/imageView7"
+         android:layout_width="18dp"
+         android:layout_height="18dp"
+         android:layout_marginEnd="16dp"
+         android:src="@drawable/baseline_keyboard_double_arrow_right_24"
+         app:layout_constraintBottom_toBottomOf="@+id/textView21"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintTop_toTopOf="@+id/textView21" />
+
+
+ </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
-

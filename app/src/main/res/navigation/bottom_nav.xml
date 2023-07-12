@@ -30,4 +30,9 @@
         android:name="com.furkanbostan.moneymanagement.ui.fragment.OthersFragment"
         android:label="fragment_others"
         tools:layout="@layout/fragment_others" />
+    <fragment
+        android:id="@+id/reportFragment"
+        android:name="com.furkanbostan.moneymanagement.ui.fragment.ReportFragment"
+        android:label="fragment_report"
+        tools:layout="@layout/fragment_report" />
 </navigation>

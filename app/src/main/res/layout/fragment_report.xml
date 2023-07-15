@@ -80,7 +80,7 @@
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/pieChartIncome"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="300dp"
             android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -88,6 +88,15 @@
 
         </com.github.mikephil.charting.charts.PieChart>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/report_income_rcv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pieChartIncome" />
         <TextView
             android:id="@+id/textView29"
             android:layout_width="wrap_content"
@@ -110,14 +119,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView29" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/report_income_rcv"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pieChartIncome" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -134,13 +136,24 @@
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/pieChartExpense"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="300dp"
             android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView30">
 
         </com.github.mikephil.charting.charts.PieChart>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/report_expense_rcv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pieChartExpense" />
 
         <TextView
             android:id="@+id/textView30"
@@ -148,7 +161,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="Gelir"
+            android:text="Gider"
             android:textColor="@color/mor"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -164,14 +177,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView30" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/report_expense_rcv"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pieChartExpense" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

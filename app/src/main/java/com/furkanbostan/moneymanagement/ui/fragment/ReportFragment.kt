@@ -1,5 +1,6 @@
 package com.furkanbostan.moneymanagement.ui.fragment
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,8 +10,13 @@ import android.widget.ImageButton
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.furkanbostan.moneymanagement.R
 import com.furkanbostan.moneymanagement.databinding.FragmentReportBinding
+import com.furkanbostan.moneymanagement.ui.adapter.PieChartAdapter
+import com.furkanbostan.moneymanagement.ui.fragment.model.ReportChartCategory
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
@@ -19,6 +25,7 @@ import com.github.mikephil.charting.utils.ColorTemplate
 
 class ReportFragment : Fragment() {
     private lateinit var binding:FragmentReportBinding
+    private lateinit var itemArray:ArrayList<ReportChartCategory>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -28,6 +35,8 @@ class ReportFragment : Fragment() {
         binding.popupButton.setOnClickListener{
             showPopUp()
         }
+
+        setRcv()
 
         return binding.root
     }
@@ -55,7 +64,6 @@ class ReportFragment : Fragment() {
     }
 
 
-
     fun pieChart(){
         val pieEntry= arrayListOf<PieEntry>()
 
@@ -67,19 +75,44 @@ class ReportFragment : Fragment() {
         val pieDataSet=PieDataSet(pieEntry,"Giderler")
         pieDataSet.valueTextSize=15f
         pieDataSet.setColors(*ColorTemplate.COLORFUL_COLORS)
-
+        pieDataSet.xValuePosition=PieDataSet.ValuePosition.OUTSIDE_SLICE
+        pieDataSet.yValuePosition=PieDataSet.ValuePosition.OUTSIDE_SLICE
+        pieDataSet.valueTextColor=R.color.laci
         val pieData=PieData(pieDataSet)
+
+
 
         binding.pieChartIncome.apply {
             data=pieData
             description=null
+            setEntryLabelColor(R.color.laci)
             centerText="Gelirler"
         }
 
         binding.pieChartExpense.apply {
             data=pieData
             description=null
+            setEntryLabelColor(R.color.laci)
             centerText="Giderler"
+        }
+
+    }
+
+    fun setRcv(){
+        itemArray= ArrayList()
+
+        itemArray.add(ReportChartCategory(25,"Eğlence",2500))
+        itemArray.add(ReportChartCategory(25,"Yemek",2500))
+        itemArray.add(ReportChartCategory(25,"Kitap",2500))
+        itemArray.add(ReportChartCategory(25,"Yakıt",2500))
+
+        binding.reportIncomeRcv.apply {
+            layoutManager=LinearLayoutManager(context,RecyclerView.VERTICAL,false)
+            adapter=PieChartAdapter(itemArray)
+        }
+        binding.reportExpenseRcv.apply {
+            layoutManager=LinearLayoutManager(context,RecyclerView.VERTICAL,false)
+            adapter=PieChartAdapter(itemArray)
         }
 
     }

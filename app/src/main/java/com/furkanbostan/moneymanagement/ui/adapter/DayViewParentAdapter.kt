@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.furkanbostan.moneymanagement.databinding.ItemParentRecyclerBinding
-import com.furkanbostan.moneymanagement.ui.fragment.model.ParentRecycleView
+import com.furkanbostan.moneymanagement.model.ParentRecycleView
 
 class DayViewParentAdapter(val itemList:List<ParentRecycleView>): RecyclerView.Adapter<DayViewParentAdapter.DayViewParentAdapterViewHolder>() {
     inner class DayViewParentAdapterViewHolder(itemBinding:ItemParentRecyclerBinding):RecyclerView.ViewHolder(itemBinding.root) {

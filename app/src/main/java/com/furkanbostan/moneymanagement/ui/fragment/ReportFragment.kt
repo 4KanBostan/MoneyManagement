@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.furkanbostan.moneymanagement.R
 import com.furkanbostan.moneymanagement.databinding.FragmentReportBinding
 import com.furkanbostan.moneymanagement.ui.adapter.PieChartAdapter
-import com.furkanbostan.moneymanagement.ui.fragment.model.ReportChartCategory
+import com.furkanbostan.moneymanagement.model.ReportChartCategory
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
@@ -35,7 +35,6 @@ class ReportFragment : Fragment() {
         binding.popupButton.setOnClickListener{
             showPopUp()
         }
-
         setRcv()
 
         return binding.root

@@ -13,9 +13,9 @@ import com.furkanbostan.moneymanagement.databinding.FragmentHomeBinding
 import com.furkanbostan.moneymanagement.ui.adapter.CustomRecyclerAdapter
 import com.furkanbostan.moneymanagement.ui.adapter.HomeGoalsAdapter
 import com.furkanbostan.moneymanagement.ui.adapter.HomeTransAdapter
-import com.furkanbostan.moneymanagement.ui.fragment.model.HomeAccount
-import com.furkanbostan.moneymanagement.ui.fragment.model.Goals
-import com.furkanbostan.moneymanagement.ui.fragment.model.Transaction
+import com.furkanbostan.moneymanagement.model.HomeAccount
+import com.furkanbostan.moneymanagement.model.Goals
+import com.furkanbostan.moneymanagement.model.Transaction
 import com.omega_r.libs.omegarecyclerview.viewpager.default_transformers.ScaleTransformer
 import java.time.LocalDate
 

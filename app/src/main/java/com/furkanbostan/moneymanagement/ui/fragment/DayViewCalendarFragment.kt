@@ -1,9 +1,6 @@
 package com.furkanbostan.moneymanagement.ui.fragment
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,13 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.furkanbostan.moneymanagement.R
 import com.furkanbostan.moneymanagement.databinding.FragmentDayViewCalendarBinding
-import com.furkanbostan.moneymanagement.ui.adapter.DailyTransactionsAdapter
-import com.furkanbostan.moneymanagement.ui.adapter.DayViewChildAdapter
 import com.furkanbostan.moneymanagement.ui.adapter.DayViewParentAdapter
-import com.furkanbostan.moneymanagement.ui.fragment.model.ParentRecycleView
-import com.furkanbostan.moneymanagement.ui.fragment.model.Transaction
-import com.google.android.material.tabs.TabLayout
-import kotlinx.coroutines.delay
+import com.furkanbostan.moneymanagement.model.ParentRecycleView
+import com.furkanbostan.moneymanagement.model.Transaction
 import java.time.LocalDate
 
 
@@ -37,7 +30,6 @@ class DayViewCalendarFragment : Fragment() {
             adapter = DayViewParentAdapter(ornekTrans())
         }
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

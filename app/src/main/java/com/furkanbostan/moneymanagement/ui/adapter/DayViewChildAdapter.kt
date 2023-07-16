@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.furkanbostan.moneymanagement.databinding.ItemDialogBinding
-import com.furkanbostan.moneymanagement.ui.fragment.model.Transaction
+import com.furkanbostan.moneymanagement.model.Transaction
 
 class DayViewChildAdapter(val context:Context, val transactionList:ArrayList<Transaction>):RecyclerView.Adapter<DayViewChildAdapter.DayViewChildAdapterViewHolder>() {
     class DayViewChildAdapterViewHolder(itemBinding:ItemDialogBinding):RecyclerView.ViewHolder(itemBinding.root) {

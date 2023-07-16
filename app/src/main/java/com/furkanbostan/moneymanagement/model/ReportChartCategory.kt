@@ -1,3 +1,3 @@
-package com.furkanbostan.moneymanagement.ui.fragment.model
+package com.furkanbostan.moneymanagement.model
 
 data class ReportChartCategory(val rate:Int, val name:String, val amount:Int)

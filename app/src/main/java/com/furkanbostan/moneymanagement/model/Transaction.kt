@@ -1,4 +1,4 @@
-package com.furkanbostan.moneymanagement.ui.fragment.model
+package com.furkanbostan.moneymanagement.model
 
 import java.time.LocalDate
 

@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.furkanbostan.moneymanagement.databinding.ItemHomeGoalsBinding
-import com.furkanbostan.moneymanagement.ui.fragment.model.Goals
+import com.furkanbostan.moneymanagement.model.Goals
 
 class HomeGoalsAdapter(val context:Context, val itemArray:ArrayList<Goals>):RecyclerView.Adapter<HomeGoalsAdapter.HomeGoalsAdapterViewHolder>() {
     class HomeGoalsAdapterViewHolder(val itemBinding:ItemHomeGoalsBinding):RecyclerView.ViewHolder(itemBinding.root) {

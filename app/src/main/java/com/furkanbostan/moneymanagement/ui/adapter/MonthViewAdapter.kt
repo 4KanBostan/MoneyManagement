@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.furkanbostan.moneymanagement.databinding.ItemMonthBinding
-import com.furkanbostan.moneymanagement.ui.fragment.model.MonthTransaction
+import com.furkanbostan.moneymanagement.model.MonthTransaction
 
 class MonthViewAdapter(val monthList: ArrayList<MonthTransaction>):RecyclerView.Adapter<MonthViewAdapter.MonthViewAdapterViewHolder>() {
 

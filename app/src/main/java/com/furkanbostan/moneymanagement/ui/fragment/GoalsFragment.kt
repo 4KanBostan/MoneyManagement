@@ -8,13 +8,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.furkanbostan.moneymanagement.R
+import com.furkanbostan.moneymanagement.database.Goal
 import com.furkanbostan.moneymanagement.databinding.FragmentGoalsBinding
 import com.furkanbostan.moneymanagement.ui.adapter.GoalsAdapter
-import com.furkanbostan.moneymanagement.ui.fragment.model.Goals
+import com.furkanbostan.moneymanagement.model.Goals
+import com.furkanbostan.moneymanagement.ui.BaseCoroutine
 import java.time.LocalDate
 
 
-class GoalsFragment : Fragment() {
+class GoalsFragment : BaseCoroutine() {
         private lateinit var binding:FragmentGoalsBinding
         private lateinit var goalsList:ArrayList<Goals>
         private lateinit var localDate: LocalDate
@@ -44,5 +46,9 @@ class GoalsFragment : Fragment() {
         return goalsList
     }
 
+
+    private fun storeInRoom(list: List<Goal>){
+
+    }
 
 }

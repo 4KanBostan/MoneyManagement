@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.furkanbostan.moneymanagement.databinding.ItemReportCategoryBinding
-import com.furkanbostan.moneymanagement.ui.fragment.model.ReportChartCategory
+import com.furkanbostan.moneymanagement.model.ReportChartCategory
 
 class PieChartAdapter(val itemArray:ArrayList<ReportChartCategory>):RecyclerView.Adapter<PieChartAdapter.PieChartAdapterViewHolder>() {
     class PieChartAdapterViewHolder(itemBinding:ItemReportCategoryBinding):RecyclerView.ViewHolder(itemBinding.root) {

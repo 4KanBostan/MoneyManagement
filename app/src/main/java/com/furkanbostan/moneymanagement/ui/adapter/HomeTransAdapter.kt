@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
 import com.furkanbostan.moneymanagement.databinding.ItemDialogBinding
 import com.furkanbostan.moneymanagement.databinding.ItemHomeTransBinding
-import com.furkanbostan.moneymanagement.ui.fragment.model.Transaction
+import com.furkanbostan.moneymanagement.model.Transaction
 
 class HomeTransAdapter(val context:Context, val itemArray:ArrayList<Transaction>):RecyclerView.Adapter<HomeTransAdapter.HomeTransAdapetrViewHolder>() {
     class HomeTransAdapetrViewHolder(val itembinding:ItemHomeTransBinding):ViewHolder(itembinding.root) {

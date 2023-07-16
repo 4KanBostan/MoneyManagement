@@ -61,15 +61,13 @@ dependencies {
     //ROOM
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
-
+    implementation("androidx.room:room-ktx:$room_version")
     //Coroutine
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
-
     //Circle ImageView
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.15.1'
-
     //MPAndroidChart
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     //OmegaREcyclerView

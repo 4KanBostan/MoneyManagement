@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.furkanbostan.moneymanagement.R
 import com.furkanbostan.moneymanagement.databinding.LayoutBottomSheetBinding
 import com.furkanbostan.moneymanagement.ui.adapter.DailyTransactionsAdapter
-import com.furkanbostan.moneymanagement.ui.fragment.model.Transaction
+import com.furkanbostan.moneymanagement.model.Transaction
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import java.time.LocalDate
 

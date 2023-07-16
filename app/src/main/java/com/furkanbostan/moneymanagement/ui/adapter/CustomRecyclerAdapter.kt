@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.furkanbostan.moneymanagement.databinding.ItemCustomRecyclerBinding
-import com.furkanbostan.moneymanagement.ui.fragment.model.HomeAccount
+import com.furkanbostan.moneymanagement.model.HomeAccount
 
 class CustomRecyclerAdapter(val cardArray:ArrayList<HomeAccount>):RecyclerView.Adapter<CustomRecyclerAdapter.CustomRecyclerViewViewHolder>() {
     class CustomRecyclerViewViewHolder(itembinding:ItemCustomRecyclerBinding):RecyclerView.ViewHolder(itembinding.root) {

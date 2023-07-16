@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.furkanbostan.moneymanagement.R
 import com.furkanbostan.moneymanagement.databinding.ItemDialogBinding
-import com.furkanbostan.moneymanagement.ui.fragment.model.Transaction
+import com.furkanbostan.moneymanagement.model.Transaction
 import de.hdodenhof.circleimageview.CircleImageView
 
 class DailyTransactionsAdapter(val context:Context,var transactionList: List<Transaction>): RecyclerView.Adapter<DailyTransactionsAdapter.DailyTransactionsAdapterViewHolder>(){

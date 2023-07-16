@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView.VERTICAL
 import com.furkanbostan.moneymanagement.R
 import com.furkanbostan.moneymanagement.databinding.FragmentMonthViewCalendarBinding
 import com.furkanbostan.moneymanagement.ui.adapter.MonthViewAdapter
-import com.furkanbostan.moneymanagement.ui.fragment.model.MonthTransaction
+import com.furkanbostan.moneymanagement.model.MonthTransaction
 
 
 class MonthViewCalendarFragment : Fragment() {

@@ -1,11 +1,6 @@
 package com.furkanbostan.moneymanagement.database
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.util.Date
+import androidx.room.*
 
 @Entity(tableName = "goal")
 data class Goal(
@@ -19,7 +14,13 @@ data class Goal(
     @ColumnInfo(name = "target_goal")
     var target_goal:Float,
     @ColumnInfo(name = "target_date")
-    var target_date:LocalDate,
+    var target_date:String,
+    @ColumnInfo(name = "date_day")
+    var date_day:String,
+    @ColumnInfo(name = "date_month")
+    var date_month:String,
+    @ColumnInfo(name = "date_year")
+    var date_year:String,
     @ColumnInfo(name = "image_url")
-    var image_url:String
+    var image_url:Int
 )

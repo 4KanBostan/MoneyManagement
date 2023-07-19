@@ -1,12 +1,8 @@
 package com.furkanbostan.moneymanagement.database
 
-import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.util.Date
 
 @Entity(tableName = "transaction")
 data class Transaction(
@@ -20,11 +16,17 @@ data class Transaction(
     @ColumnInfo(name = "amount")
     var amount:Float,
     @ColumnInfo(name = "date")
-    var date:LocalDate,
+    var date:String,
     @ColumnInfo(name = "note")
     var note:String,
+    @ColumnInfo(name = "date_day")
+    var date_day:String,
+    @ColumnInfo(name = "date_month")
+    var date_month:String,
+    @ColumnInfo(name = "date_year")
+    var date_year:String,
     @ColumnInfo(name = "type")
-    var type:Boolean
+    var type:Boolean,
 
 
 )

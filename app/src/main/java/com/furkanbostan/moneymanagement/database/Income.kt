@@ -3,7 +3,6 @@ package com.furkanbostan.moneymanagement.database
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.time.LocalDate
 
 @Entity(tableName = "income")
 data class Income(
@@ -19,5 +18,11 @@ data class Income(
     @ColumnInfo(name = "note")
     var note:String,
     @ColumnInfo(name = "date")
-    var date:LocalDate
+    var date:String,
+    @ColumnInfo(name = "date_day")
+    var date_day:String,
+    @ColumnInfo(name = "date_month")
+    var date_month:String,
+    @ColumnInfo(name = "date_year")
+    var date_year:String
 )

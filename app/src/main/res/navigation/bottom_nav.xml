@@ -19,7 +19,12 @@
         android:id="@+id/goalsFragment"
         android:name="com.furkanbostan.moneymanagement.ui.fragment.GoalsFragment"
         android:label="fragment_goals"
-        tools:layout="@layout/fragment_goals" />
+        tools:layout="@layout/fragment_goals" >
+        <action
+            android:id="@+id/action_goalsFragment_to_addGoalFragment"
+            app:destination="@id/addGoalFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
     <fragment
         android:id="@+id/accountsFragment"
         android:name="com.furkanbostan.moneymanagement.ui.fragment.AccountsFragment"
@@ -35,4 +40,15 @@
         android:name="com.furkanbostan.moneymanagement.ui.fragment.ReportFragment"
         android:label="fragment_report"
         tools:layout="@layout/fragment_report" />
+    <fragment
+        android:id="@+id/addGoalFragment"
+        android:name="com.furkanbostan.moneymanagement.ui.fragment.AddGoalFragment"
+        android:label="fragment_add_goal"
+        tools:layout="@layout/fragment_add_goal" >
+        <action
+            android:id="@+id/action_addGoalFragment_to_goalsFragment"
+            app:destination="@id/goalsFragment"
+            app:popUpTo="@id/goalsFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

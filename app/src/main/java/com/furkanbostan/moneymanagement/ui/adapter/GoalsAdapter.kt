@@ -6,10 +6,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.furkanbostan.moneymanagement.database.Goal
+import com.furkanbostan.moneymanagement.database.GoalAndCategory
 import com.furkanbostan.moneymanagement.databinding.ItemGoalsBinding
 import com.furkanbostan.moneymanagement.model.Goals
 
-class GoalsAdapter(val context:Context, val itemArray:ArrayList<Goal>):RecyclerView.Adapter<GoalsAdapter.GoalsAdapterViewHolder>() {
+class GoalsAdapter(val context:Context, val itemArray:ArrayList<GoalAndCategory>):RecyclerView.Adapter<GoalsAdapter.GoalsAdapterViewHolder>() {
     class GoalsAdapterViewHolder(val itemBinding:ItemGoalsBinding):RecyclerView.ViewHolder(itemBinding.root) {
         val binding:ItemGoalsBinding=itemBinding
     }
@@ -25,13 +26,13 @@ class GoalsAdapter(val context:Context, val itemArray:ArrayList<Goal>):RecyclerV
     override fun onBindViewHolder(holder: GoalsAdapterViewHolder, position: Int) {
         val temp= itemArray[position]
 
-        holder.binding.goalsName.text=temp.name
-        holder.binding.goalsDate.text=temp.target_date
-        holder.binding.goalsBalance.text=temp.amount.toInt().toString()
-        holder.binding.goalsTarget.text=temp.target_goal.toInt().toString()
-        Glide.with(context).load(temp.image_url).into(holder.binding.goalsImage)
+        holder.binding.goalsName.text=temp.goal.description
+        holder.binding.goalsDate.text=temp.goal.target_date
+        holder.binding.goalsBalance.text=temp.goal.amount.toInt().toString()
+        holder.binding.goalsTarget.text=temp.goal.target_goal.toInt().toString()
+        Glide.with(context).load(temp.category.image_url).into(holder.binding.goalsImage)
         holder.binding.horizontalProgressBar.apply {
-            progress= temp.amount.toInt()
+            progress= temp.goal.amount.toInt()
             max=100
         }
     }

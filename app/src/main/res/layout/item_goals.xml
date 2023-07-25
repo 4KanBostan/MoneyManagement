@@ -21,8 +21,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/car" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/goals_name"

@@ -10,9 +10,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.furkanbostan.moneymanagement.R
 import com.furkanbostan.moneymanagement.database.Goal
+import com.furkanbostan.moneymanagement.database.GoalAndCategory
+import com.furkanbostan.moneymanagement.database.GoalCategory
 import com.furkanbostan.moneymanagement.database.service.ManagDataBase
 import com.furkanbostan.moneymanagement.databinding.FragmentGoalsBinding
 import com.furkanbostan.moneymanagement.ui.BaseFragment
+import com.furkanbostan.moneymanagement.ui.DataListener
 import com.furkanbostan.moneymanagement.ui.adapter.GoalsAdapter
 import kotlinx.coroutines.job
 import kotlinx.coroutines.launch
@@ -26,8 +29,10 @@ class GoalsFragment : BaseFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding=FragmentGoalsBinding.inflate(layoutInflater,container,false)
         //storeInRoom()
+        addCategory()
+        //addGoal()
         totalSaving()
-        //addItem()
+
         getAllGoal()
 
         binding.addButton.setOnClickListener {
@@ -53,24 +58,24 @@ class GoalsFragment : BaseFragment() {
     }
 
 
-    fun setRcv( list: List<Goal>){
-        val liste:ArrayList<Goal> =list as ArrayList<Goal>
+    fun setRcv( list: List<GoalAndCategory>){
+        val liste:ArrayList<GoalAndCategory> =list as ArrayList<GoalAndCategory>
         binding.goalsRecycler.apply {
             layoutManager=LinearLayoutManager(context,RecyclerView.VERTICAL,false)
             adapter=GoalsAdapter(context,liste)
         }
     }
 
-    fun addItem():ArrayList<Goal>{
+    fun addGoal():ArrayList<Goal>{
         localDate= LocalDate.now()
 
 
 
         goalsList= ArrayList()
-        goalsList.add(Goal(0,"Araba",70f,2500f,localDate.toString(),localDate.dayOfMonth.toString(),localDate.month.toString(),localDate.year.toString(),R.drawable.car))
-        goalsList.add(Goal(0,"Araba",50f,2500f,localDate.toString(),localDate.dayOfMonth.toString(),localDate.month.toString(),localDate.year.toString(),R.drawable.car))
-        goalsList.add(Goal(0,"Araba",30f,2500f,localDate.toString(),localDate.dayOfMonth.toString(),localDate.month.toString(),localDate.year.toString(),R.drawable.car))
-        goalsList.add(Goal(0,"Araba",20f,2500f,localDate.toString(),localDate.dayOfMonth.toString(),localDate.month.toString(),localDate.year.toString(),R.drawable.car))
+        goalsList.add(Goal(0,"Araba",70f,2500f,localDate.toString(),localDate.dayOfMonth.toString(),localDate.month.toString(),localDate.year.toString(),1))
+        goalsList.add(Goal(0,"Araba",50f,2500f,localDate.toString(),localDate.dayOfMonth.toString(),localDate.month.toString(),localDate.year.toString(),1))
+        goalsList.add(Goal(0,"Araba",30f,2500f,localDate.toString(),localDate.dayOfMonth.toString(),localDate.month.toString(),localDate.year.toString(),1))
+        goalsList.add(Goal(0,"Araba",20f,2500f,localDate.toString(),localDate.dayOfMonth.toString(),localDate.month.toString(),localDate.year.toString(),1))
         storeAllInRoom(goalsList)
 
         return goalsList
@@ -93,10 +98,10 @@ class GoalsFragment : BaseFragment() {
     }
 
     private fun getAllGoal(){
-        var list= listOf<Goal>()
+        var list= listOf<GoalAndCategory>()
         launch {
             val dao=ManagDataBase(requireContext()).goalDao()
-            list=dao.getAllGoals()
+            list=dao.getGoalAndCategory()
             setRcv(list)
         }
 
@@ -119,5 +124,16 @@ class GoalsFragment : BaseFragment() {
         }
 
     }
+
+    private fun addCategory(){
+        val goalCategory= GoalCategory(0,"Araba",R.drawable.car)
+        launch {
+            val dao= ManagDataBase(requireContext()).goalCategoryDao()
+            dao.insert(goalCategory)
+        }
+    }
+
+
+
 
 }

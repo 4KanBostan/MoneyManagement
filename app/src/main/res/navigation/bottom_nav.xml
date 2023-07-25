@@ -50,5 +50,17 @@
             app:destination="@id/goalsFragment"
             app:popUpTo="@id/goalsFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_addGoalFragment_to_goalsEditFragment"
+            app:destination="@id/goalsEditFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/goalsEditFragment"
+        android:name="com.furkanbostan.moneymanagement.ui.fragment.GoalsEditFragment"
+        android:label="fragment_goals_edit"
+        tools:layout="@layout/fragment_goals_edit" >
+        <action
+            android:id="@+id/action_goalsEditFragment_to_addGoalFragment"
+            app:destination="@id/addGoalFragment" />
     </fragment>
 </navigation>

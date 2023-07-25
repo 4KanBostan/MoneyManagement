@@ -8,7 +8,7 @@ data class Goal(
     @ColumnInfo(name = "id")
     var id:Int=0,
     @ColumnInfo(name = "name")
-    var name:String,
+    var description:String,
     @ColumnInfo(name = "amount")
     var amount:Float,
     @ColumnInfo(name = "target_goal")
@@ -21,6 +21,6 @@ data class Goal(
     var date_month:String,
     @ColumnInfo(name = "date_year")
     var date_year:String,
-    @ColumnInfo(name = "image_url")
-    var image_url:Int
+    @ColumnInfo(name = "goal_category_id")
+    var goal_category_id:Int
 )

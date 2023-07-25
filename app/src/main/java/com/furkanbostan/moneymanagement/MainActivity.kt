@@ -2,9 +2,11 @@ package com.furkanbostan.moneymanagement
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MotionEvent
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.furkanbostan.moneymanagement.databinding.ActivityMainBinding
+import com.furkanbostan.moneymanagement.util.hideKeyBoard
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -18,5 +20,12 @@ class MainActivity : AppCompatActivity() {
         val bottomNav=binding.bottomNavMainActivity
         NavigationUI.setupWithNavController(bottomNav,navHostFragment.navController)
 
+
+    }
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        if (currentFocus != null) {
+            hideKeyBoard()
+        }
+        return super.dispatchTouchEvent(ev)
     }
 }

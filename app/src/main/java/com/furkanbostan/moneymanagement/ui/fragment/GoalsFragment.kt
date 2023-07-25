@@ -28,10 +28,12 @@ class GoalsFragment : BaseFragment() {
         private lateinit var localDate: LocalDate
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding=FragmentGoalsBinding.inflate(layoutInflater,container,false)
-        //storeInRoom()
+        storeInRoom()
         addCategory()
-        //addGoal()
+        addGoal()
         totalSaving()
+
+
 
         getAllGoal()
 
@@ -72,10 +74,10 @@ class GoalsFragment : BaseFragment() {
 
 
         goalsList= ArrayList()
-        goalsList.add(Goal(0,"Araba",70f,2500f,localDate.toString(),localDate.dayOfMonth.toString(),localDate.month.toString(),localDate.year.toString(),1))
-        goalsList.add(Goal(0,"Araba",50f,2500f,localDate.toString(),localDate.dayOfMonth.toString(),localDate.month.toString(),localDate.year.toString(),1))
-        goalsList.add(Goal(0,"Araba",30f,2500f,localDate.toString(),localDate.dayOfMonth.toString(),localDate.month.toString(),localDate.year.toString(),1))
-        goalsList.add(Goal(0,"Araba",20f,2500f,localDate.toString(),localDate.dayOfMonth.toString(),localDate.month.toString(),localDate.year.toString(),1))
+        goalsList.add(Goal(0,"Araba",70f,2500f,localDate.toString(),localDate.dayOfMonth.toString(),localDate.month.toString(),localDate.year.toString(),15))
+        goalsList.add(Goal(0,"Araba",50f,2500f,localDate.toString(),localDate.dayOfMonth.toString(),localDate.month.toString(),localDate.year.toString(),15))
+        goalsList.add(Goal(0,"Araba",30f,2500f,localDate.toString(),localDate.dayOfMonth.toString(),localDate.month.toString(),localDate.year.toString(),15))
+        goalsList.add(Goal(0,"Araba",20f,2500f,localDate.toString(),localDate.dayOfMonth.toString(),localDate.month.toString(),localDate.year.toString(),15))
         storeAllInRoom(goalsList)
 
         return goalsList
@@ -85,7 +87,7 @@ class GoalsFragment : BaseFragment() {
         localDate= LocalDate.now()
         launch {
             val dao=ManagDataBase(requireContext()).goalDao()
-            dao.insert(Goal(0,"Araba",50f,2500f,localDate.toString(),localDate.dayOfMonth.toString(),localDate.month.toString(),localDate.year.toString(),R.drawable.car))
+            dao.insert(Goal(0,"Araba",50f,2500f,localDate.toString(),localDate.dayOfMonth.toString(),localDate.month.toString(),localDate.year.toString(),15))
             println("buraya igriş yaptı")
         }
     }
@@ -93,7 +95,6 @@ class GoalsFragment : BaseFragment() {
         launch {
             val dao=ManagDataBase(requireContext()).goalDao()
             dao.insertAll(*list.toTypedArray())
-            println("buraya igriş yaptı")
         }
     }
 
@@ -130,6 +131,14 @@ class GoalsFragment : BaseFragment() {
         launch {
             val dao= ManagDataBase(requireContext()).goalCategoryDao()
             dao.insert(goalCategory)
+        }
+    }
+
+    private fun getDeleteCategory(){
+        launch {
+            val dao= ManagDataBase(requireContext()).goalCategoryDao()
+            dao.deleteAll()
+
         }
     }
 

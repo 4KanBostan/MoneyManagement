@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/beyaz"
+    tools:context=".ui.fragment.GoalCategoryAddDialog">
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/category_name_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="32dp"
+        android:hint="İsim yazınız.."
+        android:textColorHint="@color/laci"
+        app:boxStrokeColor="@color/laci"
+        app:boxStrokeWidth="1dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="20"
+        app:endIconMode="clear_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_goal_dialog_category_image">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/category_name_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/laci" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/add_goal_dialog_category_image"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/stats_bg"
+        android:padding="10dp"
+        android:src="@drawable/target"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/goal_category_save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/laci"
+        android:text="Kaydet"
+        app:layout_constraintEnd_toEndOf="@+id/category_name_layout"
+        app:layout_constraintStart_toStartOf="@+id/category_name_layout"
+        app:layout_constraintTop_toBottomOf="@+id/category_name_layout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

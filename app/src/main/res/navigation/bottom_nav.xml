@@ -53,6 +53,9 @@
         <action
             android:id="@+id/action_addGoalFragment_to_goalsEditFragment"
             app:destination="@id/goalsEditFragment" />
+        <action
+            android:id="@+id/action_addGoalFragment_to_goalCategoriesFragment"
+            app:destination="@id/goalCategoriesFragment" />
     </fragment>
     <fragment
         android:id="@+id/goalsEditFragment"
@@ -63,4 +66,9 @@
             android:id="@+id/action_goalsEditFragment_to_addGoalFragment"
             app:destination="@id/addGoalFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/goalCategoriesFragment"
+        android:name="com.furkanbostan.moneymanagement.ui.fragment.GoalCategoriesFragment"
+        android:label="fragment_goal_categories"
+        tools:layout="@layout/fragment_goal_categories" />
 </navigation>

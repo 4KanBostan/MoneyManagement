@@ -7,8 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.furkanbostan.moneymanagement.R
 import com.furkanbostan.moneymanagement.database.Goal
 import com.furkanbostan.moneymanagement.database.GoalCategory
@@ -36,6 +39,9 @@ class GoalEditDialog : BottomSheetDialogFragment(),CoroutineScope{
         binding.goalCardExitImg.setOnClickListener {
             dialog?.dismiss()
         }
+        binding.goalCardEditImg.setOnClickListener{
+            findNavController().navigate(R.id.action_addGoalFragment_to_goalCategoriesFragment)
+        }
         return binding.root
     }
 
@@ -43,7 +49,7 @@ class GoalEditDialog : BottomSheetDialogFragment(),CoroutineScope{
     fun setRcv( list: List<GoalCategory>) {
         val liste: ArrayList<GoalCategory> = list as ArrayList<GoalCategory>
         binding.goalBottomCardRcv.apply {
-            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+            layoutManager = GridLayoutManager(requireContext(),2)
             adapter = GoalCardAdapter(context, list,object : OnItemClickListener{
                 override fun onItemClick(name: GoalCategory) {
                     val mainFragment = parentFragment as? AddGoalFragment

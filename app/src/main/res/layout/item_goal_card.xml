@@ -11,7 +11,7 @@
         android:id="@+id/card_goal_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
+        android:layout_marginStart="35dp"
         android:text="Araba"
         android:textColor="@color/mor"
         android:textSize="20sp"

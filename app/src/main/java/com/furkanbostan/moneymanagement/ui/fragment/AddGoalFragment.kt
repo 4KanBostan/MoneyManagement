@@ -30,9 +30,12 @@ import kotlin.collections.ArrayList
 class AddGoalFragment : BaseFragment() {
    private lateinit var binding:FragmentAddGoalBinding
    private lateinit var itemArray:ArrayList<Goal>
+   private lateinit var categoryList:ArrayList<GoalCategory>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding= FragmentAddGoalBinding.inflate(layoutInflater,container,false)
+
+        getAllCategory()
 
         binding.backButton.setOnClickListener {
             findNavController().navigate(R.id.action_addGoalFragment_to_goalsFragment)
@@ -55,8 +58,21 @@ class AddGoalFragment : BaseFragment() {
     }
 
     private fun saveGoal() {
-        val name= binding.goalTextInputEdittext.text.toString()
         val desc= binding.goalDescTextInputEdittext.text.toString()
+        val amount= 0f
+        val targetAmount= binding.targetAmountTextInputEdittext.text.toString().toFloat()
+        val targetDate= binding.targetDateTextInputEdittext.text.toString()
+        val dateSplit= targetDate.split("-")
+        val dateDay= dateSplit.get(0)
+        val dateMonth= dateSplit.get(1)
+        val dateYear= dateSplit.get(2)
+        for (i in categoryList){
+            if (i.name.lowercase().trim()==binding.goalTextInputEdittext.text.toString().lowercase().trim()){
+                val categoryId= i.id
+                insertGoal(Goal(0,desc,amount,targetAmount,targetDate,dateDay,dateMonth,dateYear,categoryId))
+            }
+        }
+
     }
 
 
@@ -116,6 +132,15 @@ class AddGoalFragment : BaseFragment() {
             dao.insert(goal)
         }
 
+    }
+
+    private  fun getAllCategory(){
+        categoryList=ArrayList()
+        launch {
+            val dao= ManagDataBase(requireContext()).goalCategoryDao()
+            val list:List<GoalCategory> =dao.getAllGoals()
+            categoryList = list as ArrayList<GoalCategory>
+        }
     }
 
 

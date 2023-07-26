@@ -20,7 +20,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/laci"
-    tools:context=".ui.fragment.HomeFragment">
+    tools:context=".ui.homePage.HomeFragment">
 
    <ImageView
        android:id="@+id/imageView6"

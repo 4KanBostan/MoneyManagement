@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.furkanbostan.moneymanagement.ui.fragment.HomeFragment"
+        android:name="com.furkanbostan.moneymanagement.ui.homePage.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/calendarFragment"
-        android:name="com.furkanbostan.moneymanagement.ui.fragment.CalendarFragment"
+        android:name="com.furkanbostan.moneymanagement.ui.calendarPage.CalendarFragment"
         android:label="fragment_calendar"
         tools:layout="@layout/fragment_calendar" />
     <fragment
         android:id="@+id/goalsFragment"
-        android:name="com.furkanbostan.moneymanagement.ui.fragment.GoalsFragment"
+        android:name="com.furkanbostan.moneymanagement.ui.goalsPage.GoalsFragment"
         android:label="fragment_goals"
         tools:layout="@layout/fragment_goals" >
         <action
@@ -27,22 +27,22 @@
     </fragment>
     <fragment
         android:id="@+id/accountsFragment"
-        android:name="com.furkanbostan.moneymanagement.ui.fragment.AccountsFragment"
+        android:name="com.furkanbostan.moneymanagement.ui.accountPage.AccountsFragment"
         android:label="fragment_accounts"
         tools:layout="@layout/fragment_accounts" />
     <fragment
         android:id="@+id/othersFragment"
-        android:name="com.furkanbostan.moneymanagement.ui.fragment.OthersFragment"
+        android:name="com.furkanbostan.moneymanagement.ui.othersPage.OthersFragment"
         android:label="fragment_others"
         tools:layout="@layout/fragment_others" />
     <fragment
         android:id="@+id/reportFragment"
-        android:name="com.furkanbostan.moneymanagement.ui.fragment.ReportFragment"
+        android:name="com.furkanbostan.moneymanagement.ui.reportPage.ReportFragment"
         android:label="fragment_report"
         tools:layout="@layout/fragment_report" />
     <fragment
         android:id="@+id/addGoalFragment"
-        android:name="com.furkanbostan.moneymanagement.ui.fragment.AddGoalFragment"
+        android:name="com.furkanbostan.moneymanagement.ui.goalsPage.AddGoalFragment"
         android:label="fragment_add_goal"
         tools:layout="@layout/fragment_add_goal" >
         <action
@@ -59,7 +59,7 @@
     </fragment>
     <fragment
         android:id="@+id/goalsEditFragment"
-        android:name="com.furkanbostan.moneymanagement.ui.fragment.GoalsEditFragment"
+        android:name="com.furkanbostan.moneymanagement.ui.goalsPage.GoalsEditFragment"
         android:label="fragment_goals_edit"
         tools:layout="@layout/fragment_goals_edit" >
         <action
@@ -68,7 +68,7 @@
     </fragment>
     <fragment
         android:id="@+id/goalCategoriesFragment"
-        android:name="com.furkanbostan.moneymanagement.ui.fragment.GoalCategoriesFragment"
+        android:name="com.furkanbostan.moneymanagement.ui.goalsPage.GoalCategoriesFragment"
         android:label="fragment_goal_categories"
         tools:layout="@layout/fragment_goal_categories" />
 </navigation>

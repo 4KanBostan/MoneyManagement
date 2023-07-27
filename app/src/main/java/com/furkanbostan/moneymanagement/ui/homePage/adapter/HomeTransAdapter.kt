@@ -6,10 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
+import com.furkanbostan.moneymanagement.database.Transactions
 import com.furkanbostan.moneymanagement.databinding.ItemHomeTransBinding
-import com.furkanbostan.moneymanagement.model.Transaction
 
-class HomeTransAdapter(val context:Context, val itemArray:ArrayList<Transaction>):RecyclerView.Adapter<HomeTransAdapter.HomeTransAdapetrViewHolder>() {
+class HomeTransAdapter(val context:Context, val itemArray:ArrayList<Transactions>):RecyclerView.Adapter<HomeTransAdapter.HomeTransAdapetrViewHolder>() {
     class HomeTransAdapetrViewHolder(val itembinding:ItemHomeTransBinding):ViewHolder(itembinding.root) {
         val binding:ItemHomeTransBinding=itembinding
     }
@@ -24,9 +24,9 @@ class HomeTransAdapter(val context:Context, val itemArray:ArrayList<Transaction>
 
     override fun onBindViewHolder(holder: HomeTransAdapetrViewHolder, position: Int) {
         val temp = itemArray[position]
-        holder.binding.accountHomeTv.text = temp.account
+     /*   holder.binding.accountHomeTv.text = temp.account
         holder.binding.commentHomeTv.text = temp.comment
         holder.binding.amountHomeTv.text = temp.amount.toString()
-        Glide.with(context).load(temp.image).into(holder.binding.categoryImage)
+        Glide.with(context).load(temp.image).into(holder.binding.categoryImage)*/
     }
 }

@@ -108,47 +108,48 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
-        <TextView
-            android:id="@+id/textView4"
+        <LinearLayout
+            android:id="@+id/linearLayout_dayview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
-            android:layout_marginTop="8dp"
-            android:text="Mart"
-            android:textColor="@color/beyaz"
-            android:textSize="20sp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:text="2023"
-            android:textColor="@color/beyaz"
-            android:textSize="20sp"
-            app:layout_constraintStart_toEndOf="@+id/textView4"
-            app:layout_constraintTop_toTopOf="@+id/textView4" />
+            <ImageView
+                android:id="@+id/day_previous_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:src="@drawable/calendar_chevron_left_24" />
 
-        <ImageView
-            android:id="@+id/day_next_month"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:src="@drawable/calendar_chevron_right_24"
-            app:layout_constraintStart_toEndOf="@+id/textView5"
-            app:layout_constraintTop_toTopOf="@+id/textView5" />
+            <TextView
+                android:id="@+id/month_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mart"
+                android:textColor="@color/beyaz"
+                android:textSize="20sp" />
 
-        <ImageView
-            android:id="@+id/day_previous_month"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:src="@drawable/calendar_chevron_left_24"
-            app:layout_constraintEnd_toStartOf="@+id/textView4"
-            app:layout_constraintTop_toTopOf="@+id/textView5" />
+            <TextView
+                android:id="@+id/year_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2023"
+                android:layout_marginStart="5dp"
+                android:textColor="@color/beyaz"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/day_next_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:src="@drawable/calendar_chevron_right_24" />
+
+        </LinearLayout>
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -159,7 +160,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4">
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout_dayview">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/parent_recylerView"

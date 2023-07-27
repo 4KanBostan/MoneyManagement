@@ -5,10 +5,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.furkanbostan.moneymanagement.database.Transactions
 import com.furkanbostan.moneymanagement.databinding.ItemDialogBinding
-import com.furkanbostan.moneymanagement.model.Transaction
 
-class DailyTransactionsAdapter(val context:Context,var transactionList: List<Transaction>): RecyclerView.Adapter<DailyTransactionsAdapter.DailyTransactionsAdapterViewHolder>(){
+class DailyTransactionsAdapter(val context:Context,var transactionList: List<Transactions>): RecyclerView.Adapter<DailyTransactionsAdapter.DailyTransactionsAdapterViewHolder>(){
 
 
     inner class DailyTransactionsAdapterViewHolder(itemBinding:ItemDialogBinding):RecyclerView.ViewHolder(itemBinding.root) {
@@ -27,11 +27,11 @@ class DailyTransactionsAdapter(val context:Context,var transactionList: List<Tra
 
     override fun onBindViewHolder(holder: DailyTransactionsAdapterViewHolder, position: Int) {
         val temp = transactionList[position]
-
+/*
         holder.binding.accountTv.text = temp.account
         holder.binding.commentTv.text = temp.comment
         holder.binding.amountTv.text = temp.amount.toString()
         holder.binding.dialogDateTv.text = temp.date
-        Glide.with(context).load(temp.image).into(holder.binding.categoryImageView)
+        Glide.with(context).load(temp.image).into(holder.binding.categoryImageView)*/
     }
 }

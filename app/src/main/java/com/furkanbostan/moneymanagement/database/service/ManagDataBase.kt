@@ -7,11 +7,11 @@ import androidx.room.RoomDatabase
 import com.furkanbostan.moneymanagement.database.*
 import com.furkanbostan.moneymanagement.database.Dao.*
 
-@Database(entities = arrayOf(Transaction::class,Account::class, Category::class,Income::class,Expense::class,
+@Database(entities = arrayOf(Transactions::class,Account::class, Category::class,Income::class,Expense::class,
             Goal::class,GoalCategory::class), version = 1 )
 abstract class ManagDataBase:RoomDatabase() {
 
-    abstract fun transactionDao():TransactionDao
+    abstract fun transactionsDao():TransactionsDao
     abstract fun accountDao():AccountDao
     abstract fun categoryDao():CategoryDao
     abstract fun incomeDao():IncomeDao

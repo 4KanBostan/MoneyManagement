@@ -109,7 +109,7 @@
 
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/month_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
@@ -126,8 +126,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:src="@drawable/calendar_chevron_right_24"
-            app:layout_constraintStart_toEndOf="@+id/textView4"
-            app:layout_constraintTop_toTopOf="@+id/textView4" />
+            app:layout_constraintStart_toEndOf="@+id/month_tv"
+            app:layout_constraintTop_toTopOf="@+id/month_tv" />
 
         <ImageView
             android:id="@+id/day_previous_month"
@@ -135,8 +135,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:src="@drawable/calendar_chevron_left_24"
-            app:layout_constraintEnd_toStartOf="@+id/textView4"
-            app:layout_constraintTop_toTopOf="@+id/textView4" />
+            app:layout_constraintEnd_toStartOf="@+id/month_tv"
+            app:layout_constraintTop_toTopOf="@+id/month_tv" />
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -148,7 +148,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView4">
+            app:layout_constraintTop_toTopOf="@+id/month_tv">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recylerView_monthView"

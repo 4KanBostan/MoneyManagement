@@ -7,17 +7,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.furkanbostan.moneymanagement.R
+import com.furkanbostan.moneymanagement.database.Transactions
 import com.furkanbostan.moneymanagement.databinding.LayoutBottomSheetBinding
 import com.furkanbostan.moneymanagement.ui.calendarPage.adapter.DailyTransactionsAdapter
-import com.furkanbostan.moneymanagement.model.Transaction
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import java.time.LocalDate
 
 class ShowDayFragment(val date: String) :BottomSheetDialogFragment(){
     private lateinit var binding: LayoutBottomSheetBinding
     private lateinit var recyclerView:RecyclerView
     private lateinit var adapter: DailyTransactionsAdapter
-    private lateinit var transactionList :ArrayList<Transaction>
+    private lateinit var transactionList :ArrayList<Transactions>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,8 +30,8 @@ class ShowDayFragment(val date: String) :BottomSheetDialogFragment(){
         recyclerView = binding.recyclerDialog
         recyclerView.layoutManager = LinearLayoutManager(context)
 
-        adapter = DailyTransactionsAdapter(requireContext(),ornekTrans())
-        recyclerView.adapter=adapter
+      /*  adapter = DailyTransactionsAdapter(requireContext(),ornekTrans())
+        recyclerView.adapter=adapter*/
 
         return binding.root
     }
@@ -43,6 +42,7 @@ class ShowDayFragment(val date: String) :BottomSheetDialogFragment(){
     }
 
 
+/*
     fun ornekTrans():List<Transaction>{
         val t = Transaction("Eğlence","Banka Kartı",3500f,"22/3/2023","Oyun makinesi",R.drawable.cutlery)
         val t1 = Transaction("Eğlence","Banka Kartı",3500f,"22/3/2023","Oyun makinesi",R.drawable.cutlery)
@@ -53,5 +53,6 @@ class ShowDayFragment(val date: String) :BottomSheetDialogFragment(){
         transactionList.add(t2)
         return transactionList
     }
+*/
 
 }

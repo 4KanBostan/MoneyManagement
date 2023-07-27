@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.furkanbostan.moneymanagement.R
 import com.furkanbostan.moneymanagement.database.GoalAndCategory
+import com.furkanbostan.moneymanagement.database.Transactions
 import com.furkanbostan.moneymanagement.database.service.ManagDataBase
 import com.furkanbostan.moneymanagement.databinding.FragmentHomeBinding
 import com.furkanbostan.moneymanagement.model.HomeAccount
-import com.furkanbostan.moneymanagement.model.Transaction
 import com.furkanbostan.moneymanagement.ui.BaseFragment
 import com.furkanbostan.moneymanagement.ui.homePage.adapter.CustomRecyclerAdapter
 import com.furkanbostan.moneymanagement.ui.homePage.adapter.HomeGoalsAdapter
@@ -25,7 +25,7 @@ import java.time.LocalDate
 class HomeFragment : BaseFragment() {
     private lateinit var binding:FragmentHomeBinding
     private lateinit var cardArray: ArrayList<HomeAccount>
-    private lateinit var transactionList:ArrayList<Transaction>
+    private lateinit var transactionList:ArrayList<Transactions>
     private lateinit var goalsList:ArrayList<GoalAndCategory>
     private lateinit var localDate: LocalDate
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -46,11 +46,11 @@ class HomeFragment : BaseFragment() {
                 .setMinScale(0.8f)
                 .build()
         )
-        binding.accountRecyc.adapter= CustomRecyclerAdapter(addItem())
+        //binding.accountRecyc.adapter= CustomRecyclerAdapter(addItem())
 
-        binding.homeTransRecyc.layoutManager=LinearLayoutManager(context,RecyclerView.VERTICAL,false)
+       /* binding.homeTransRecyc.layoutManager=LinearLayoutManager(context,RecyclerView.VERTICAL,false)
         binding.homeTransRecyc.adapter= HomeTransAdapter(context,ornekTrans())
-
+*/
 
 
 
@@ -75,7 +75,7 @@ class HomeFragment : BaseFragment() {
 
         return cardArray
     }
-    fun ornekTrans():ArrayList<Transaction>{
+   /* fun ornekTrans():ArrayList<Transaction>{
         val t = Transaction("Eğlence","Banka Kartı",3500f,"22/3/2023","Oyun makinesi", R.drawable.cutlery)
         val t1 = Transaction("Eğlence","Banka Kartı",3500f,"22/3/2023","Oyun makinesi", R.drawable.cutlery)
         val t2 = Transaction("Eğlence","Banka Kartı",3500f,"22/3/2023","Oyun makinesi", R.drawable.cutlery)
@@ -85,7 +85,7 @@ class HomeFragment : BaseFragment() {
         transactionList.add(t2)
 
         return transactionList
-    }
+    }*/
 
     private fun getLastGoals(){
         var list= listOf<GoalAndCategory>()
@@ -93,8 +93,16 @@ class HomeFragment : BaseFragment() {
             val dao = ManagDataBase(requireContext()).goalDao()
             list = dao.getGoalAndCategory()
            // goalsList= list as ArrayList<GoalAndCategory>
-            goalsList= ArrayList(list.subList(0,5))
-            goalSetRcv(goalsList)
+            if (list.isEmpty()){
+
+            }
+            else if (list.size<6){
+                goalSetRcv(goalsList)
+            }else{
+                goalsList= ArrayList(list.subList(list.size-5,list.size-1))
+                goalSetRcv(goalsList)
+            }
+
         }
 
     }

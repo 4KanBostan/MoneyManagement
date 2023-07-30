@@ -6,10 +6,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
+import com.furkanbostan.moneymanagement.R
 import com.furkanbostan.moneymanagement.database.Transactions
+import com.furkanbostan.moneymanagement.database.TransactionsWithCategoryAndAccount
 import com.furkanbostan.moneymanagement.databinding.ItemHomeTransBinding
 
-class HomeTransAdapter(val context:Context, val itemArray:ArrayList<Transactions>):RecyclerView.Adapter<HomeTransAdapter.HomeTransAdapetrViewHolder>() {
+class HomeTransAdapter(val context:Context, val itemArray:ArrayList<TransactionsWithCategoryAndAccount>):RecyclerView.Adapter<HomeTransAdapter.HomeTransAdapetrViewHolder>() {
     class HomeTransAdapetrViewHolder(val itembinding:ItemHomeTransBinding):ViewHolder(itembinding.root) {
         val binding:ItemHomeTransBinding=itembinding
     }
@@ -24,9 +26,9 @@ class HomeTransAdapter(val context:Context, val itemArray:ArrayList<Transactions
 
     override fun onBindViewHolder(holder: HomeTransAdapetrViewHolder, position: Int) {
         val temp = itemArray[position]
-     /*   holder.binding.accountHomeTv.text = temp.account
-        holder.binding.commentHomeTv.text = temp.comment
-        holder.binding.amountHomeTv.text = temp.amount.toString()
-        Glide.with(context).load(temp.image).into(holder.binding.categoryImage)*/
+        holder.binding.accountHomeTv.text = temp.account.name
+        holder.binding.commentHomeTv.text = temp.transaction.note
+        holder.binding.amountHomeTv.text = temp.transaction.amount.toString()
+        Glide.with(context).load(temp.category.image_url).into(holder.binding.categoryImage)
     }
 }

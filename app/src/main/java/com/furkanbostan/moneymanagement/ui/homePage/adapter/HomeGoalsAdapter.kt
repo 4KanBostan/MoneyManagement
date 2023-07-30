@@ -27,7 +27,7 @@ class HomeGoalsAdapter(val context:Context, val itemArray:ArrayList<GoalAndCateg
         holder.binding.homeGoalsName.text=temp.goal.description
         holder.binding.homeGoalsAmount.text=temp.goal.amount.toInt().toString()
         holder.binding.homeGoalsBalance.text=temp.goal.target_goal.toInt().toString()
-        val progCount= (temp.goal.amount)/(temp.goal.target_goal)*100
+        val progCount= ((temp.goal.amount)/(temp.goal.target_goal))*100
         holder.binding.progressBar.apply {
             progress=progCount.toInt()
             max=100}

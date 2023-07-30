@@ -28,7 +28,15 @@ interface TransactionsDao {
     suspend fun getTransofMonth():List<Transactions>
 
     @Transaction
-    @Query("SELECT * FROM transactions WHERE transactions.date_month LIKE :month")
-    suspend fun getTransactionsWithCategoryAndAccountofMounth(month:String):List<TransactionsWithCategoryAndAccount>
+    @Query("SELECT * FROM transactions WHERE transactions.date_year = :year AND transactions.date_month = :month")
+    suspend fun getTransactionsWithCategoryAndAccountofMounth(month:String, year:String):List<TransactionsWithCategoryAndAccount>
+
+    @Transaction
+    @Query("SELECT * FROM transactions")
+    suspend fun getTransactionsWithCategoryAndAccount():List<TransactionsWithCategoryAndAccount>
+
+    @Transaction
+    @Query("SELECT * FROM transactions ORDER BY id DESC LIMIT 4")
+    suspend fun getLastTransactionsWithCategoryAndAccount():List<TransactionsWithCategoryAndAccount>
 
 }

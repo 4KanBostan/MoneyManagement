@@ -43,7 +43,7 @@
             app:layout_constraintTop_toBottomOf="@+id/progressBar" />
 
         <TextView
-            android:id="@+id/home_goals_balance"
+            android:id="@+id/home_goals_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -59,12 +59,12 @@
             android:layout_marginStart="5dp"
             android:text="/"
             android:textColor="@color/beyaz"
-            app:layout_constraintBottom_toBottomOf="@+id/home_goals_balance"
-            app:layout_constraintStart_toEndOf="@+id/home_goals_balance"
-            app:layout_constraintTop_toTopOf="@+id/home_goals_balance" />
+            app:layout_constraintBottom_toBottomOf="@+id/home_goals_amount"
+            app:layout_constraintStart_toEndOf="@+id/home_goals_amount"
+            app:layout_constraintTop_toTopOf="@+id/home_goals_amount" />
 
         <TextView
-            android:id="@+id/home_goals_amount"
+            android:id="@+id/home_goals_balance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"

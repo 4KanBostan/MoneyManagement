@@ -8,7 +8,7 @@ import com.furkanbostan.moneymanagement.database.*
 import com.furkanbostan.moneymanagement.database.Dao.*
 
 @Database(entities = arrayOf(Transactions::class,Account::class, Category::class,Income::class,Expense::class,
-            Goal::class,GoalCategory::class), version = 1 )
+            Goal::class,GoalCategory::class), version = 2 )
 abstract class ManagDataBase:RoomDatabase() {
 
     abstract fun transactionsDao():TransactionsDao

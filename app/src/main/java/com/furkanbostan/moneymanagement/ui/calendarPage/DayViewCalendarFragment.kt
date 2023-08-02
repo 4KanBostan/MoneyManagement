@@ -1,14 +1,17 @@
 package com.furkanbostan.moneymanagement.ui.calendarPage
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.app.DatePickerDialog.OnDateSetListener
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.DatePicker
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.furkanbostan.moneymanagement.database.Transactions
 import com.furkanbostan.moneymanagement.database.TransactionsWithCategoryAndAccount
 import com.furkanbostan.moneymanagement.database.service.ManagDataBase
 import com.furkanbostan.moneymanagement.databinding.FragmentDayViewCalendarBinding
@@ -20,7 +23,6 @@ import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class DayViewCalendarFragment : BaseFragment() {
@@ -43,7 +45,7 @@ class DayViewCalendarFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.monthTv.setOnClickListener {
-            showDatePickerDialog()
+            //showDatePickerDialog()
         }
 
         transactions.observe(viewLifecycleOwner) { value ->
@@ -70,7 +72,7 @@ class DayViewCalendarFragment : BaseFragment() {
 
 
 
-    private fun showDatePickerDialog() {
+  /*  private fun showDatePickerDialog() {
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
@@ -89,7 +91,7 @@ class DayViewCalendarFragment : BaseFragment() {
         )
         datePickerDialog.show()
     }
-
+*/
     private fun updateTransactionsforMonthAndYear(month: String, year: String) {
         val displayedMonth = SimpleDateFormat("MMMM", Locale("tr")).format(calendar.time)
         binding.monthTv.text = displayedMonth
@@ -123,12 +125,10 @@ class DayViewCalendarFragment : BaseFragment() {
                 groupedTransactions[dateDay] = newList
             }
         }
-        println(groupedTransactions.size)
         updateRcv(groupedTransactions)
     }
 
     private fun updateRcv(groupedTransactions: TreeMap<String, ArrayList<TransactionsWithCategoryAndAccount>>) {
-        println("groupedTransactions" +groupedTransactions.size)
         parentList =ArrayList()
         parentList.clear()
         for (i in groupedTransactions){
@@ -140,4 +140,60 @@ class DayViewCalendarFragment : BaseFragment() {
         }
 
     }
+
+
+    private fun getTodaysDate(): String? {
+        val cal = Calendar.getInstance()
+        val year = cal[Calendar.YEAR]
+        var month = cal[Calendar.MONTH]
+        month = month + 1
+        val day = cal[Calendar.DAY_OF_MONTH]
+        return makeDateString(day, month, year)
+    }
+
+    private fun getMonthFormat(month: Int): String? {
+        if (month == 1) return "JAN"
+        if (month == 2) return "FEB"
+        if (month == 3) return "MAR"
+        if (month == 4) return "APR"
+        if (month == 5) return "MAY"
+        if (month == 6) return "JUN"
+        if (month == 7) return "JUL"
+        if (month == 8) return "AUG"
+        if (month == 9) return "SEP"
+        if (month == 10) return "OCT"
+        if (month == 11) return "NOV"
+        return if (month == 12) "DEC" else "JAN"
+
+        //default should never happen
+    }
+    private fun makeDateString(day: Int, month: Int, year: Int): String? {
+        return getMonthFormat(month) + " " + day + " " + year
+    }
+
+    fun openDatePicker(view: View?) {
+        datePickerDialog!!.show()
+    }
+
+    private fun initDatePicker() {
+        val dateSetListener =
+            OnDateSetListener { datePicker, year, month, day ->
+                var month = month
+                month = month + 1
+                val date = makeDateString(day, month, year)
+                binding.monthTv.setText(date)
+            }
+        val cal = Calendar.getInstance()
+        val year = cal[Calendar.YEAR]
+        val month = cal[Calendar.MONTH]
+        val day = cal[Calendar.DAY_OF_MONTH]
+        val style: Int = AlertDialog.THEME_HOLO_LIGHT
+
+        datePickerDialog = DatePickerDialog(requireContext(), style, dateSetListener, year, month, day)
+
+        //datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+    }
+
+
+
 }

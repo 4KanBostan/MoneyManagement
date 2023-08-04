@@ -1,17 +1,16 @@
 package com.furkanbostan.moneymanagement.ui.calendarPage
 
-import android.app.AlertDialog
-import android.app.DatePickerDialog
-import android.app.DatePickerDialog.OnDateSetListener
+import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.DatePicker
+import android.view.WindowManager
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.furkanbostan.moneymanagement.R
 import com.furkanbostan.moneymanagement.database.TransactionsWithCategoryAndAccount
 import com.furkanbostan.moneymanagement.database.service.ManagDataBase
 import com.furkanbostan.moneymanagement.databinding.FragmentDayViewCalendarBinding
@@ -25,12 +24,11 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 
 
-class DayViewCalendarFragment : BaseFragment() {
+class DayViewCalendarFragment : BaseFragment(), CalendarDialog.OnDateSelectedListener {
     private lateinit var binding: FragmentDayViewCalendarBinding
     private lateinit var parentList: ArrayList<ParentRecycleView>
     private val today = LocalDate.now()
     private val calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Istanbul"))
-    private var datePickerDialog: DatePickerDialog? = null
     private val transactions = MutableLiveData<ArrayList<TransactionsWithCategoryAndAccount>>()
     private var groupedTransactions = TreeMap<String, ArrayList<TransactionsWithCategoryAndAccount>>()
 
@@ -45,16 +43,13 @@ class DayViewCalendarFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.monthTv.setOnClickListener {
-            //showDatePickerDialog()
+            openCustomDialog()
         }
 
         transactions.observe(viewLifecycleOwner) { value ->
             groupTransactionsByMonth()
         }
 
-        binding.linearLayoutDayview.setOnClickListener {
-            datePickerDialog?.show()
-        }
         //Fragment başlatıldığında günün verisine göre adapter çağrıldı
         todayCallAdapter()
 
@@ -62,6 +57,8 @@ class DayViewCalendarFragment : BaseFragment() {
     }
 
     private fun todayCallAdapter() {
+        calendar.set(Calendar.MONTH,today.monthValue)
+        calendar.set(Calendar.YEAR,today.year)
         val month = DateTimeFormatter.ofPattern("MMMM ", Locale("tr")).format(today)
         binding.monthTv.text = month
         val year = DateTimeFormatter.ofPattern("YYYY", Locale("tr")).format(today)
@@ -71,50 +68,20 @@ class DayViewCalendarFragment : BaseFragment() {
     }
 
 
-
-  /*  private fun showDatePickerDialog() {
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
-
-        val datePickerDialog = DatePickerDialog(
-            requireContext(),
-            { _, selectedYear, selectedMonth, _ ->
-                calendar.set(selectedYear, selectedMonth, 1) // Seçilen tarihi 1. gün olarak ayarla
-                val formattedMonth = calendar.get(Calendar.MONTH)
-                updateTransactionsforMonthAndYear(
-                    "%02d".format(calendar.get(Calendar.MONTH)+1),
-                    calendar.get(Calendar.YEAR).toString()
-                )
-            },
-            year, month, day
-        )
-        datePickerDialog.show()
-    }
-*/
-    private fun updateTransactionsforMonthAndYear(month: String, year: String) {
-        val displayedMonth = SimpleDateFormat("MMMM", Locale("tr")).format(calendar.time)
-        binding.monthTv.text = displayedMonth
-        binding.yearTv.text = year
-
-        // Seçilen ayda olan işlemleri yeniden yükle
-        filterTransactionsForMonthAndYear(month, year)
-
-    }
-
-
     private fun filterTransactionsForMonthAndYear(month: String, year: String) {
+        println(month)
         launch {
             val dao = ManagDataBase(requireContext()).transactionsDao()
             transactions.value?.clear()
-            transactions.postValue(dao.getTransactionsWithCategoryAndAccountofMounth(month,year) as ArrayList<TransactionsWithCategoryAndAccount>)
+            transactions.postValue(dao.getTransactionsWithCategoryAndAccountofMounth(month,year.trim()) as ArrayList<TransactionsWithCategoryAndAccount>)
         }
+        calendar.set(Calendar.MONTH,(month.trimStart('0').toInt())-1)
+        calendar.set(Calendar.YEAR,today.year)
     }
 
 
     private fun groupTransactionsByMonth() {
         groupedTransactions.values.clear()
-        println("transactions" + transactions.value!!.size)
         for (transaction in transactions.value!!) {
             val dateDay = transaction.transaction.date_day
             if (groupedTransactions.containsKey(dateDay)) {
@@ -141,59 +108,20 @@ class DayViewCalendarFragment : BaseFragment() {
 
     }
 
-
-    private fun getTodaysDate(): String? {
-        val cal = Calendar.getInstance()
-        val year = cal[Calendar.YEAR]
-        var month = cal[Calendar.MONTH]
-        month = month + 1
-        val day = cal[Calendar.DAY_OF_MONTH]
-        return makeDateString(day, month, year)
+    override fun onDateSelected(year: String, monthIndex: Int) {
+        binding.yearTv.text=year
+        calendar.set(Calendar.MONTH, monthIndex)
+        binding.monthTv.text=SimpleDateFormat("MMMM", Locale("tr")).format(calendar.time)
+        filterTransactionsForMonthAndYear("%02d".format(monthIndex+1),year)
     }
 
-    private fun getMonthFormat(month: Int): String? {
-        if (month == 1) return "JAN"
-        if (month == 2) return "FEB"
-        if (month == 3) return "MAR"
-        if (month == 4) return "APR"
-        if (month == 5) return "MAY"
-        if (month == 6) return "JUN"
-        if (month == 7) return "JUL"
-        if (month == 8) return "AUG"
-        if (month == 9) return "SEP"
-        if (month == 10) return "OCT"
-        if (month == 11) return "NOV"
-        return if (month == 12) "DEC" else "JAN"
-
-        //default should never happen
+    private fun openCustomDialog() {
+        val dialog = CalendarDialog(requireContext(),calendar)
+        dialog.onDateSelectedListener = this
+        //dialog.window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.MATCH_PARENT)
+        dialog.window?.setGravity(Gravity.TOP)
+        dialog.show()
     }
-    private fun makeDateString(day: Int, month: Int, year: Int): String? {
-        return getMonthFormat(month) + " " + day + " " + year
-    }
-
-    fun openDatePicker(view: View?) {
-        datePickerDialog!!.show()
-    }
-
-    private fun initDatePicker() {
-        val dateSetListener =
-            OnDateSetListener { datePicker, year, month, day ->
-                var month = month
-                month = month + 1
-                val date = makeDateString(day, month, year)
-                binding.monthTv.setText(date)
-            }
-        val cal = Calendar.getInstance()
-        val year = cal[Calendar.YEAR]
-        val month = cal[Calendar.MONTH]
-        val day = cal[Calendar.DAY_OF_MONTH]
-        val style: Int = AlertDialog.THEME_HOLO_LIGHT
-
-        datePickerDialog = DatePickerDialog(requireContext(), style, dateSetListener, year, month, day)
-
-        //datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
-    }
-
 
 
 }

@@ -45,9 +45,9 @@ class CalendarViewCalendarFragment : BaseFragment() {
         binding= FragmentCalendarViewCalendarBinding.inflate(layoutInflater,container,false)
 
         //deleteAllTransaction()
-        //insertAll()
-        //insertAcc()
-        //insertCateg()
+        insertAll()
+        insertAcc()
+        insertCateg()
         return binding.root
     }
 
@@ -201,16 +201,16 @@ class CalendarViewCalendarFragment : BaseFragment() {
         val arraylist:ArrayList<Transactions>
         arraylist= ArrayList()
         val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
-        val dateSplit= today.minusDays(25).format(formatter).toString().split("-")
+        val dateSplit= today.minusDays(1).format(formatter).toString().split("-")
         val dateDay= dateSplit.get(0)
         val dateMonth= dateSplit.get(1)
         val dateYear= dateSplit.get(2)
         arraylist.add(Transactions(0,2,2,200f,today.plusDays(10).format(formatter).toString(),
             "kendi hedefim",dateDay,dateMonth,dateYear,false))
-        arraylist.add(Transactions(0,1,1,200f,today.plusDays(8).format(formatter).toString(),
+        arraylist.add(Transactions(0,1,2,200f,today.plusDays(8).format(formatter).toString(),
             "kendi hedefim",dateDay,dateMonth,dateYear,false))
 
-        arraylist.add(Transactions(0,1,1,200f,today.plusDays(8).format(formatter).toString(),
+        arraylist.add(Transactions(0,2,1,200f,today.plusDays(8).format(formatter).toString(),
             "kendi hedefim",dateDay,dateMonth,dateYear,false))
 
         launch {
@@ -221,7 +221,7 @@ class CalendarViewCalendarFragment : BaseFragment() {
 
 
     private fun insertAcc(){
-        val acc= Account(0,"Kredi Kartı",500f,100f,400f)
+        val acc= Account(0,"Banka Kartı",500f,100f,400f)
         launch {
             val dao= ManagDataBase(requireContext()).accountDao()
             dao.insert(acc)
@@ -229,7 +229,7 @@ class CalendarViewCalendarFragment : BaseFragment() {
     }
 
     private fun insertCateg(){
-        val cat= Category(0,"Yemek",0f,0f,0f,R.drawable.cutlery)
+        val cat= Category(0,"Araba",0f,0f,0f,R.drawable.car)
         launch {
             val dao=ManagDataBase(requireContext()).categoryDao()
             dao.insert(cat)

@@ -118,7 +118,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/day_previous_month"
+                android:id="@+id/dayView_previous_month"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
@@ -142,7 +142,7 @@
                 android:textSize="20sp" />
 
             <ImageView
-                android:id="@+id/day_next_month"
+                android:id="@+id/dayView_next_month"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"

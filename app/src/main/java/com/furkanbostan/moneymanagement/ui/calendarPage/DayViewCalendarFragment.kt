@@ -55,6 +55,23 @@ class DayViewCalendarFragment : BaseFragment(), CalendarDialog.OnDateSelectedLis
 
         }
 
+        binding.dayViewNextMonth.setOnClickListener {
+            val index= calendar.get(Calendar.MONTH)
+            calendar.set(Calendar.MONTH,index+1)
+            binding.yearTv.text= calendar.get(Calendar.YEAR).toString()
+            binding.monthTv.text=SimpleDateFormat("MMMM", Locale("tr")).format(calendar.time)
+            filterTransactionsForMonthAndYear("%02d".format(calendar.get(Calendar.MONTH)+1),calendar.get(Calendar.YEAR).toString())
+        }
+
+        binding.dayViewPreviousMonth.setOnClickListener {
+            val index= calendar.get(Calendar.MONTH)
+            calendar.set(Calendar.MONTH,index-1)
+            binding.yearTv.text= calendar.get(Calendar.YEAR).toString()
+            binding.monthTv.text=SimpleDateFormat("MMMM", Locale("tr")).format(calendar.time)
+            filterTransactionsForMonthAndYear("%02d".format(calendar.get(Calendar.MONTH)+1),calendar.get(Calendar.YEAR).toString())
+
+        }
+
         //Fragment başlatıldığında günün verisine göre adapter çağrıldı
         todayCallAdapter()
 

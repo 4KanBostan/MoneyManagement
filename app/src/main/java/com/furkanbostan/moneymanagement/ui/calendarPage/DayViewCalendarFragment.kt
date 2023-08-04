@@ -1,16 +1,13 @@
 package com.furkanbostan.moneymanagement.ui.calendarPage
 
-import android.app.Dialog
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.furkanbostan.moneymanagement.R
 import com.furkanbostan.moneymanagement.database.TransactionsWithCategoryAndAccount
 import com.furkanbostan.moneymanagement.database.service.ManagDataBase
 import com.furkanbostan.moneymanagement.databinding.FragmentDayViewCalendarBinding
@@ -48,12 +45,36 @@ class DayViewCalendarFragment : BaseFragment(), CalendarDialog.OnDateSelectedLis
 
         transactions.observe(viewLifecycleOwner) { value ->
             groupTransactionsByMonth()
+            if(!value.isEmpty()){
+                totalStats(value)
+            }else{
+                binding.incomeTv.text="0"
+                binding.expenseTv.text="0"
+                binding.totalTv.text= "0"
+            }
+
         }
 
         //Fragment başlatıldığında günün verisine göre adapter çağrıldı
         todayCallAdapter()
 
 
+    }
+
+    private fun totalStats(value: ArrayList<TransactionsWithCategoryAndAccount>) {
+        var incomeCount= 0f
+        var expenseCount= 0f
+        var balanceCount = 0f
+        for (i in value){
+            if(i.transaction.type){
+                incomeCount+= i.transaction.amount
+            }
+            else expenseCount+= i.transaction.amount
+        }
+        balanceCount= incomeCount - expenseCount
+        binding.incomeTv.text=incomeCount.toInt().toString()
+        binding.expenseTv.text=expenseCount.toInt().toString()
+        binding.totalTv.text= balanceCount.toInt().toString()
     }
 
     private fun todayCallAdapter() {

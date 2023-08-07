@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.children
+import androidx.lifecycle.MutableLiveData
 import com.furkanbostan.moneymanagement.R
 import com.furkanbostan.moneymanagement.database.Account
 import com.furkanbostan.moneymanagement.database.Category
@@ -26,6 +27,7 @@ import com.kizitonwose.calendar.view.MonthDayBinder
 import com.kizitonwose.calendar.view.MonthHeaderFooterBinder
 import com.kizitonwose.calendar.view.ViewContainer
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.YearMonth
@@ -38,8 +40,9 @@ class CalendarViewCalendarFragment : BaseFragment() {
     private lateinit var binding : FragmentCalendarViewCalendarBinding
     private val selectedDates = mutableSetOf<LocalDate>()
     private val today = LocalDate.now()
-    private lateinit var transactionList:ArrayList<TransactionsWithCategoryAndAccount>
-
+    private val transactions = MutableLiveData<ArrayList<Transactions>>()
+    private var groupedTransactions = TreeMap<String, ArrayList<Transactions>>()
+    private  var currentDate= MutableLiveData<LocalDate>()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         binding= FragmentCalendarViewCalendarBinding.inflate(layoutInflater,container,false)
@@ -48,6 +51,8 @@ class CalendarViewCalendarFragment : BaseFragment() {
         insertAll()
         insertAcc()
         insertCateg()
+
+        currentDate.value=LocalDate.now()
         return binding.root
     }
 
@@ -59,6 +64,14 @@ class CalendarViewCalendarFragment : BaseFragment() {
         val daysOfWeek = daysOfWeek(firstDayOfWeek = DayOfWeek.MONDAY)
         setupCalendarHeader(daysOfWeek)
         setupMonthCalendar(startMonth, endMonth, currentMonth, daysOfWeek)
+
+        transactions.observe(viewLifecycleOwner){ value->
+            groupTransactionsByMonth()
+            binding.calendarView.notifyMonthChanged(currentDate.value!!.yearMonth)
+        }
+        currentDate.observe(viewLifecycleOwner){ value->
+            filterTransactionsForMonthAndYear("%02d".format(value.monthValue),value.year.toString())
+        }
 
         super.onViewCreated(view, savedInstanceState)
     }
@@ -83,7 +96,6 @@ class CalendarViewCalendarFragment : BaseFragment() {
                         dateClicked(date = day.date)
                         val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
                         ShowDayFragment(day.date.format(formatter)).show(childFragmentManager,"dialog")
-
                     }
                 }
             }
@@ -102,18 +114,21 @@ class CalendarViewCalendarFragment : BaseFragment() {
 
         binding.calendarView.monthScrollListener = { month ->
             binding.calendarMonthTv.text= month.yearMonth.displayText()
-            println(month.toString())
-            getTransOfMonth("07","2023 ")
+
         }
 
         binding.calendarNextMonth.setOnClickListener{
+
             binding.calendarView.findFirstVisibleMonth()?.let {
                 binding.calendarView.smoothScrollToMonth(it.yearMonth.nextMonth)
+                currentDate.postValue(currentDate.value?.plusMonths(1))
             }
         }
         binding.calendarPreviousMonth.setOnClickListener{
+
             binding.calendarView.findFirstVisibleMonth()?.let {
                 binding.calendarView.smoothScrollToMonth(it.yearMonth.previousMonth)
+                currentDate.postValue(currentDate.value?.minusMonths(1))
             }
         }
 
@@ -123,7 +138,26 @@ class CalendarViewCalendarFragment : BaseFragment() {
 
     private fun bindDate(date: LocalDate, dayTextView: TextView,incomeTv:TextView, expenseTv:TextView,
                          totalTv:TextView, layout: ConstraintLayout, isSelectable: Boolean) {
+        var incomeCount= 0f
+        var expenseCount= 0f
+        var totalCount = 0f
+        if(isSelectable) {
+            if (!groupedTransactions.isEmpty()) {
+                val formatDate= "%02d".format(date.dayOfMonth)
+                if (groupedTransactions.containsKey(formatDate)){
+                     for (i in groupedTransactions.getValue(formatDate)){
+                         if (i.type) incomeCount += i.amount
+                         else expenseCount += i.amount
+                     }
+                    totalCount = incomeCount - expenseCount
+                    incomeTv.text = incomeCount.toInt().toString()
+                    expenseTv.text = expenseCount.toInt().toString()
+                    totalTv.text = totalCount.toInt().toString()
+                }
+            }
+        }
 
+        println(DateTimeFormatter.ofPattern("dd-MM-YYYY", Locale("tr")).format(date))
         dayTextView.text = date.dayOfMonth.toString()
         if (isSelectable) {
             when {
@@ -187,30 +221,62 @@ class CalendarViewCalendarFragment : BaseFragment() {
     }
 
 
-   /* private fun getTransactionOfMonth(month:String){
-        var list = listOf<TransactionsWithCategoryAndAccount>()
-       launch {
-           val dao= ManagDataBase(requireContext()).transactionsDao()
-           list= dao.getTransactionsWithCategoryAndAccountOfMonth()
-           transactionList= list as ArrayList<TransactionsWithCategoryAndAccount>
-       }
+    private fun filterTransactionsForMonthAndYear(month: String, year: String) {
+        println(month)
+        launch {
+            val dao = ManagDataBase(requireContext()).transactionsDao()
+            transactions.value?.clear()
+            transactions.postValue(dao.getTransofMonthAndYear(month,year.trim()) as ArrayList<Transactions>)
+        }
+       /* calendar.set(Calendar.MONTH,(month.trimStart('0').toInt())-1)
+        calendar.set(Calendar.YEAR,today.year)*/
+    }
 
-    }*/
+
+    private fun groupTransactionsByMonth() {
+        groupedTransactions.clear()
+        for (transaction in transactions.value!!) {
+            val dateDay = transaction.date_day
+            if (groupedTransactions.containsKey(dateDay)) {
+                groupedTransactions[dateDay]?.add(transaction)
+            } else {
+                val newList = java.util.ArrayList<Transactions>()
+                newList.add(transaction)
+                groupedTransactions[dateDay] = newList
+            }
+        }
+
+    }
+
+
+
+
+
+
+
+
 
     private fun insertAll(){
         val arraylist:ArrayList<Transactions>
         arraylist= ArrayList()
         val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
-        val dateSplit= today.minusDays(1).format(formatter).toString().split("-")
+        val dateSplit= today.minusDays(35).format(formatter).toString().split("-")
         val dateDay= dateSplit.get(0)
         val dateMonth= dateSplit.get(1)
         val dateYear= dateSplit.get(2)
-        arraylist.add(Transactions(0,2,2,200f,today.plusDays(10).format(formatter).toString(),
+        arraylist.add(Transactions(0,2,2,200f,today.plusDays(28).format(formatter).toString(),
             "kendi hedefim",dateDay,dateMonth,dateYear,false))
-        arraylist.add(Transactions(0,1,2,200f,today.plusDays(8).format(formatter).toString(),
+        arraylist.add(Transactions(0,1,2,200f,today.plusDays(7).format(formatter).toString(),
             "kendi hedefim",dateDay,dateMonth,dateYear,false))
 
-        arraylist.add(Transactions(0,2,1,200f,today.plusDays(8).format(formatter).toString(),
+        arraylist.add(Transactions(0,2,1,200f,today.minusDays(11).format(formatter).toString(),
+            "kendi hedefim",dateDay,dateMonth,dateYear,false))
+        arraylist.add(Transactions(0,2,2,200f,today.minusDays(28).format(formatter).toString(),
+            "kendi hedefim",dateDay,dateMonth,dateYear,false))
+        arraylist.add(Transactions(0,1,2,200f,today.minusDays(7).format(formatter).toString(),
+            "kendi hedefim",dateDay,dateMonth,dateYear,false))
+
+        arraylist.add(Transactions(0,2,1,200f,today.minusDays(11).format(formatter).toString(),
             "kendi hedefim",dateDay,dateMonth,dateYear,false))
 
         launch {
@@ -241,14 +307,5 @@ class CalendarViewCalendarFragment : BaseFragment() {
             dao.deleteAll()
         }
     }
-
-    private fun getTransOfMonth(month:String, year:String){
-        transactionList= ArrayList()
-        launch {
-            val dao= ManagDataBase(requireContext()).transactionsDao()
-           // transactionList=dao.getTransactionsWithCategoryAndAccountofMounth(month,year) as ArrayList<TransactionsWithCategoryAndAccount>
-        }
-    }
-
 
 }

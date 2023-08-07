@@ -31,13 +31,15 @@ class DayViewCalendarFragment : BaseFragment(), CalendarDialog.OnDateSelectedLis
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentDayViewCalendarBinding.inflate(layoutInflater, container, false)
-
-
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //Fragment başlatıldığında günün verisine göre adapter çağrıldı
+        todayCallAdapter()
+
 
         binding.monthTv.setOnClickListener {
             openCustomDialog()
@@ -71,28 +73,8 @@ class DayViewCalendarFragment : BaseFragment(), CalendarDialog.OnDateSelectedLis
             filterTransactionsForMonthAndYear("%02d".format(calendar.get(Calendar.MONTH)+1),calendar.get(Calendar.YEAR).toString())
 
         }
-
-        //Fragment başlatıldığında günün verisine göre adapter çağrıldı
-        todayCallAdapter()
-
-
     }
 
-    private fun totalStats(value: ArrayList<TransactionsWithCategoryAndAccount>) {
-        var incomeCount= 0f
-        var expenseCount= 0f
-        var balanceCount = 0f
-        for (i in value){
-            if(i.transaction.type){
-                incomeCount+= i.transaction.amount
-            }
-            else expenseCount+= i.transaction.amount
-        }
-        balanceCount= incomeCount - expenseCount
-        binding.incomeTv.text=incomeCount.toInt().toString()
-        binding.expenseTv.text=expenseCount.toInt().toString()
-        binding.totalTv.text= balanceCount.toInt().toString()
-    }
 
     private fun todayCallAdapter() {
         calendar.set(Calendar.MONTH,today.monthValue)
@@ -159,6 +141,21 @@ class DayViewCalendarFragment : BaseFragment(), CalendarDialog.OnDateSelectedLis
         //dialog.window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.MATCH_PARENT)
         dialog.window?.setGravity(Gravity.TOP)
         dialog.show()
+    }
+    private fun totalStats(value: ArrayList<TransactionsWithCategoryAndAccount>) {
+        var incomeCount= 0f
+        var expenseCount= 0f
+        var balanceCount = 0f
+        for (i in value){
+            if(i.transaction.type){
+                incomeCount+= i.transaction.amount
+            }
+            else expenseCount+= i.transaction.amount
+        }
+        balanceCount= incomeCount - expenseCount
+        binding.incomeTv.text=incomeCount.toInt().toString()
+        binding.expenseTv.text=expenseCount.toInt().toString()
+        binding.totalTv.text= balanceCount.toInt().toString()
     }
 
 

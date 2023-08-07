@@ -24,8 +24,8 @@ interface TransactionsDao {
     @Query("DELETE FROM transactions WHERE id = :id")
     suspend fun deleteById(id:Int)
 
-    @Query("SELECT * FROM transactions")
-    suspend fun getTransofMonth():List<Transactions>
+    @Query("SELECT * FROM transactions WHERE date_year = :year AND date_month = :month")
+    suspend fun getTransofMonthAndYear(month:String, year:String):List<Transactions>
 
     @Transaction
     @Query("SELECT * FROM transactions WHERE transactions.date_year = :year AND transactions.date_month = :month")

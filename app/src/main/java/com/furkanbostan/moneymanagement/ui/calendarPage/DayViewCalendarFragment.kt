@@ -75,6 +75,12 @@ class DayViewCalendarFragment : BaseFragment(), CalendarDialog.OnDateSelectedLis
         }
     }
 
+    override fun onDateSelected(year: String, monthIndex: Int) {
+        binding.yearTv.text=year
+        calendar.set(Calendar.MONTH, monthIndex)
+        binding.monthTv.text=SimpleDateFormat("MMMM", Locale("tr")).format(calendar.time)
+        filterTransactionsForMonthAndYear("%02d".format(monthIndex+1),year)
+    }
 
     private fun todayCallAdapter() {
         calendar.set(Calendar.MONTH,today.monthValue)
@@ -128,12 +134,7 @@ class DayViewCalendarFragment : BaseFragment(), CalendarDialog.OnDateSelectedLis
 
     }
 
-    override fun onDateSelected(year: String, monthIndex: Int) {
-        binding.yearTv.text=year
-        calendar.set(Calendar.MONTH, monthIndex)
-        binding.monthTv.text=SimpleDateFormat("MMMM", Locale("tr")).format(calendar.time)
-        filterTransactionsForMonthAndYear("%02d".format(monthIndex+1),year)
-    }
+
 
     private fun openCustomDialog() {
         val dialog = CalendarDialog(requireContext(),calendar)

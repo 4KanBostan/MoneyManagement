@@ -2,10 +2,10 @@ package com.furkanbostan.moneymanagement.ui.calendarPage
 
 import android.graphics.Typeface
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.TypedValue
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.children
@@ -14,7 +14,6 @@ import com.furkanbostan.moneymanagement.R
 import com.furkanbostan.moneymanagement.database.Account
 import com.furkanbostan.moneymanagement.database.Category
 import com.furkanbostan.moneymanagement.database.Transactions
-import com.furkanbostan.moneymanagement.database.TransactionsWithCategoryAndAccount
 import com.furkanbostan.moneymanagement.database.service.ManagDataBase
 import com.furkanbostan.moneymanagement.databinding.CalendarDayLayoutBinding
 import com.furkanbostan.moneymanagement.databinding.CalendarHeaderBinding
@@ -31,18 +30,21 @@ import java.text.SimpleDateFormat
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.YearMonth
+import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
 
 
-class CalendarViewCalendarFragment : BaseFragment() {
+class CalendarViewCalendarFragment : BaseFragment(),CalendarDialog.OnDateSelectedListener {
     private lateinit var binding : FragmentCalendarViewCalendarBinding
     private val selectedDates = mutableSetOf<LocalDate>()
     private val today = LocalDate.now()
     private val transactions = MutableLiveData<ArrayList<Transactions>>()
     private var groupedTransactions = TreeMap<String, ArrayList<Transactions>>()
     private  var currentDate= MutableLiveData<LocalDate>()
+    private val debounceHandler = Handler(Looper.getMainLooper())
+    private val calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Istanbul"))
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         binding= FragmentCalendarViewCalendarBinding.inflate(layoutInflater,container,false)
@@ -59,20 +61,27 @@ class CalendarViewCalendarFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val currentMonth = YearMonth.now()
-        val startMonth = currentMonth.minusMonths(10)
-        val endMonth = currentMonth.plusMonths(10)
+        val startMonth = currentMonth.minusMonths(150)
+        val endMonth = currentMonth.plusMonths(150)
         val daysOfWeek = daysOfWeek(firstDayOfWeek = DayOfWeek.MONDAY)
         setupCalendarHeader(daysOfWeek)
         setupMonthCalendar(startMonth, endMonth, currentMonth, daysOfWeek)
 
         transactions.observe(viewLifecycleOwner){ value->
             groupTransactionsByMonth()
+            binding.calendarView.smoothScrollToMonth(currentDate.value!!.yearMonth)
             binding.calendarView.notifyMonthChanged(currentDate.value!!.yearMonth)
+            calendar.set(Calendar.YEAR,currentDate.value!!.year)
+            calendar.set(Calendar.MONTH,(currentDate.value!!.monthValue)-1)
+
         }
         currentDate.observe(viewLifecycleOwner){ value->
             filterTransactionsForMonthAndYear("%02d".format(value.monthValue),value.year.toString())
         }
-
+        binding.calendarMonthTv.setOnClickListener {
+            openCustomDialog()
+        }
+            
         super.onViewCreated(view, savedInstanceState)
     }
 
@@ -114,21 +123,44 @@ class CalendarViewCalendarFragment : BaseFragment() {
 
         binding.calendarView.monthScrollListener = { month ->
             binding.calendarMonthTv.text= month.yearMonth.displayText()
-
         }
 
-        binding.calendarNextMonth.setOnClickListener{
+        binding.calendarNextMonth.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                // Butona dokunduğunda
+                binding.calendarNextMonth.isEnabled = false // Butonu etkisizleştir
+                binding.calendarView.findFirstVisibleMonth()?.let {
+                    currentDate.postValue(currentDate.value?.plusMonths(1))
+                    //binding.calendarView.smoothScrollToMonth(it.yearMonth.nextMonth)
+                }
+                debounceHandler.postDelayed({
+                    binding.calendarNextMonth.isEnabled = true // Belirli bir süre sonra butonu tekrar etkinleştir
+                }, 500) // 1000 ms = 1 saniye
 
-            binding.calendarView.findFirstVisibleMonth()?.let {
-                binding.calendarView.smoothScrollToMonth(it.yearMonth.nextMonth)
-                currentDate.postValue(currentDate.value?.plusMonths(1))
+                true
+            } else {
+                false
             }
         }
-        binding.calendarPreviousMonth.setOnClickListener{
 
-            binding.calendarView.findFirstVisibleMonth()?.let {
-                binding.calendarView.smoothScrollToMonth(it.yearMonth.previousMonth)
-                currentDate.postValue(currentDate.value?.minusMonths(1))
+
+
+        binding.calendarPreviousMonth.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                // Butona dokunduğunda
+                binding.calendarPreviousMonth.isEnabled = false // Butonu etkisizleştir
+                binding.calendarView.findFirstVisibleMonth()?.let {
+                    currentDate.postValue(currentDate.value?.minusMonths(1))
+                    //binding.calendarView.smoothScrollToMonth(it.yearMonth.previousMonth)
+
+                }
+                debounceHandler.postDelayed({
+                    binding.calendarPreviousMonth.isEnabled = true // Belirli bir süre sonra butonu tekrar etkinleştir
+                }, 500) // 1000 ms = 1 saniye
+
+                true
+            } else {
+                false
             }
         }
 
@@ -141,6 +173,9 @@ class CalendarViewCalendarFragment : BaseFragment() {
         var incomeCount= 0f
         var expenseCount= 0f
         var totalCount = 0f
+        incomeTv.text = ""
+        expenseTv.text = ""
+        totalTv.text = ""
         if(isSelectable) {
             if (!groupedTransactions.isEmpty()) {
                 val formatDate= "%02d".format(date.dayOfMonth)
@@ -157,7 +192,7 @@ class CalendarViewCalendarFragment : BaseFragment() {
             }
         }
 
-        println(DateTimeFormatter.ofPattern("dd-MM-YYYY", Locale("tr")).format(date))
+       // println(DateTimeFormatter.ofPattern("dd-MM-YYYY", Locale("tr")).format(date))
         dayTextView.text = date.dayOfMonth.toString()
         if (isSelectable) {
             when {
@@ -222,7 +257,6 @@ class CalendarViewCalendarFragment : BaseFragment() {
 
 
     private fun filterTransactionsForMonthAndYear(month: String, year: String) {
-        println(month)
         launch {
             val dao = ManagDataBase(requireContext()).transactionsDao()
             transactions.value?.clear()
@@ -247,12 +281,6 @@ class CalendarViewCalendarFragment : BaseFragment() {
         }
 
     }
-
-
-
-
-
-
 
 
 
@@ -308,4 +336,18 @@ class CalendarViewCalendarFragment : BaseFragment() {
         }
     }
 
+    override fun onDateSelected(year: String, monthIndex: Int) {
+        val localDate = LocalDate.of(
+            (year.trim() .toInt()),
+            monthIndex + 1,
+            1)
+        currentDate.postValue(localDate)
+    }
+    private fun openCustomDialog() {
+        val dialog = CalendarDialog(requireContext(),calendar)
+        dialog.onDateSelectedListener = this
+        //dialog.window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.MATCH_PARENT)
+        dialog.window?.setGravity(Gravity.TOP)
+        dialog.show()
+    }
 }

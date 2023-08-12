@@ -50,10 +50,9 @@ class CalendarViewCalendarFragment : BaseFragment(),CalendarDialog.OnDateSelecte
         binding= FragmentCalendarViewCalendarBinding.inflate(layoutInflater,container,false)
 
         //deleteAllTransaction()
-        insertAll()
-        insertAcc()
-        insertCateg()
-
+        //insertAll()
+        //insertAcc()
+        //insertCateg()
         currentDate.value=LocalDate.now()
         return binding.root
     }
@@ -103,8 +102,8 @@ class CalendarViewCalendarFragment : BaseFragment(),CalendarDialog.OnDateSelecte
                 view.setOnClickListener {
                     if (day.position == DayPosition.MonthDate) {
                         dateClicked(date = day.date)
-                        val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
-                        ShowDayFragment(day.date.format(formatter)).show(childFragmentManager,"dialog")
+                        calendar.set(Calendar.DAY_OF_MONTH,day.date.dayOfMonth)
+                        ShowDayFragment(calendar).show(childFragmentManager,"dialog")
                     }
                 }
             }
@@ -288,7 +287,7 @@ class CalendarViewCalendarFragment : BaseFragment(),CalendarDialog.OnDateSelecte
         val arraylist:ArrayList<Transactions>
         arraylist= ArrayList()
         val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
-        val dateSplit= today.minusDays(35).format(formatter).toString().split("-")
+        val dateSplit= today.plusDays(25).format(formatter).toString().split("-")
         val dateDay= dateSplit.get(0)
         val dateMonth= dateSplit.get(1)
         val dateYear= dateSplit.get(2)

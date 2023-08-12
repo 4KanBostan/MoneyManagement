@@ -8,15 +8,27 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.furkanbostan.moneymanagement.R
 import com.furkanbostan.moneymanagement.database.Transactions
-import com.furkanbostan.moneymanagement.databinding.LayoutBottomSheetBinding
+import com.furkanbostan.moneymanagement.database.TransactionsWithCategoryAndAccount
+import com.furkanbostan.moneymanagement.database.service.ManagDataBase
+import com.furkanbostan.moneymanagement.databinding.FragmentShowDayBinding
 import com.furkanbostan.moneymanagement.ui.calendarPage.adapter.DailyTransactionsAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.coroutines.CoroutineContext
 
-class ShowDayFragment(val date: String) :BottomSheetDialogFragment(){
-    private lateinit var binding: LayoutBottomSheetBinding
+class ShowDayFragment(val calendar:Calendar) :BottomSheetDialogFragment(),CoroutineScope{
+    private lateinit var binding: FragmentShowDayBinding
     private lateinit var recyclerView:RecyclerView
     private lateinit var adapter: DailyTransactionsAdapter
-    private lateinit var transactionList :ArrayList<Transactions>
+    private lateinit var transactionList :ArrayList<TransactionsWithCategoryAndAccount>
+    private lateinit var groupedTransactionsOfDay : TreeMap<String,ArrayList<TransactionsWithCategoryAndAccount>>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,16 +36,37 @@ class ShowDayFragment(val date: String) :BottomSheetDialogFragment(){
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = LayoutBottomSheetBinding.inflate(inflater,container,false)
+        binding = FragmentShowDayBinding.inflate(inflater,container,false)
+        val formatter = SimpleDateFormat("dd-MM-yyyy", Locale("tr"))
+        setDateTv()
 
-        binding.dateTv.text=date.toString()
+        filterTransacitonOfDate(formatter.format(calendar.time))
+
+
+        binding.nextDay.setOnClickListener {
+            calendar.add(Calendar.DAY_OF_MONTH,1)
+            filterTransacitonOfDate(formatter.format(calendar.time))
+        }
+        binding.previousDay.setOnClickListener {
+            calendar.add(Calendar.DAY_OF_MONTH,-1)
+            filterTransacitonOfDate(formatter.format(calendar.time))
+        }
+
+        return binding.root
+    }
+
+    private fun setDateTv() {
+        val formatter = SimpleDateFormat("dd-MM-yyyy", Locale("tr"))
+        binding.dateTv.text= formatter.format(calendar.time)
+    }
+
+    private fun setRcv(list:ArrayList<TransactionsWithCategoryAndAccount>) {
         recyclerView = binding.recyclerDialog
         recyclerView.layoutManager = LinearLayoutManager(context)
 
-      /*  adapter = DailyTransactionsAdapter(requireContext(),ornekTrans())
-        recyclerView.adapter=adapter*/
+          adapter = DailyTransactionsAdapter(requireContext(),list)
+          recyclerView.adapter=adapter
 
-        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,18 +74,39 @@ class ShowDayFragment(val date: String) :BottomSheetDialogFragment(){
 
     }
 
-
-/*
-    fun ornekTrans():List<Transaction>{
-        val t = Transaction("Eğlence","Banka Kartı",3500f,"22/3/2023","Oyun makinesi",R.drawable.cutlery)
-        val t1 = Transaction("Eğlence","Banka Kartı",3500f,"22/3/2023","Oyun makinesi",R.drawable.cutlery)
-        val t2 = Transaction("Eğlence","Banka Kartı",3500f,"22/3/2023","Oyun makinesi",R.drawable.cutlery)
-        transactionList=ArrayList()
-        transactionList.add(t)
-        transactionList.add(t1)
-        transactionList.add(t2)
-        return transactionList
+    private fun filterTransacitonOfDate(date:String){
+        setDateTv()
+        transactionList= ArrayList()
+        launch {
+            val dao= ManagDataBase(requireContext()).transactionsDao()
+            transactionList.clear()
+            transactionList.addAll(dao.getTransactionsWithCategoryAndAccountOfDate(date) as ArrayList<TransactionsWithCategoryAndAccount>)
+            setRcv(transactionList)
+            setTotalStats(transactionList)
+        }
     }
-*/
+
+    private fun setTotalStats(list: ArrayList<TransactionsWithCategoryAndAccount>) {
+        var incomeCount= 0f
+        var expenseCount= 0f
+
+        for (i in list){
+            if (i.transaction.type) incomeCount+=i.transaction.amount
+            else expenseCount+= i.transaction.amount
+        }
+        binding.incomeTvShowDay.text=incomeCount.toInt().toString()
+        binding.expenseTvShowDay.text=expenseCount.toInt().toString()
+    }
+
+
+    private val job= Job()
+
+    override val coroutineContext: CoroutineContext
+        get() = job + Dispatchers.Main
+
+    override fun onDestroy() {
+        super.onDestroy()
+        job.cancel()
+    }
 
 }

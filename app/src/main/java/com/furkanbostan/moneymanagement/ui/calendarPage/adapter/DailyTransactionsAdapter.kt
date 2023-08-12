@@ -5,10 +5,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.furkanbostan.moneymanagement.R
 import com.furkanbostan.moneymanagement.database.Transactions
+import com.furkanbostan.moneymanagement.database.TransactionsWithCategoryAndAccount
 import com.furkanbostan.moneymanagement.databinding.ItemDialogBinding
+import com.furkanbostan.moneymanagement.util.setTextColorRes
 
-class DailyTransactionsAdapter(val context:Context,var transactionList: List<Transactions>): RecyclerView.Adapter<DailyTransactionsAdapter.DailyTransactionsAdapterViewHolder>(){
+class DailyTransactionsAdapter(val context:Context,var transactionList: ArrayList<TransactionsWithCategoryAndAccount>): RecyclerView.Adapter<DailyTransactionsAdapter.DailyTransactionsAdapterViewHolder>(){
 
 
     inner class DailyTransactionsAdapterViewHolder(itemBinding:ItemDialogBinding):RecyclerView.ViewHolder(itemBinding.root) {
@@ -27,11 +30,13 @@ class DailyTransactionsAdapter(val context:Context,var transactionList: List<Tra
 
     override fun onBindViewHolder(holder: DailyTransactionsAdapterViewHolder, position: Int) {
         val temp = transactionList[position]
-/*
-        holder.binding.accountTv.text = temp.account
-        holder.binding.commentTv.text = temp.comment
-        holder.binding.amountTv.text = temp.amount.toString()
-        holder.binding.dialogDateTv.text = temp.date
-        Glide.with(context).load(temp.image).into(holder.binding.categoryImageView)*/
+        if (temp.transaction.type) holder.binding.amountTv.setTextColorRes(R.color.green)
+        else holder.binding.amountTv.setTextColorRes(R.color.red)
+
+        holder.binding.accountTv.text = temp.account.name
+        holder.binding.commentTv.text = temp.transaction.note
+        holder.binding.amountTv.text = temp.transaction.amount.toString()
+        holder.binding.dialogDateTv.text = temp.transaction.date
+        Glide.with(context).load(temp.category.image_url).into(holder.binding.categoryImageView)
     }
 }

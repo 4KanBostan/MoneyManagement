@@ -53,21 +53,21 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/incomeTv_show_day"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="1500"
+                android:text="0"
                 android:textColor="#503535" />
 
             <TextView
-                android:id="@+id/textView7"
+                android:id="@+id/expenseTv_show_Day"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="2000" />
+                android:text="0" />
         </LinearLayout>
 
         <View

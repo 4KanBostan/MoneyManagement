@@ -8,6 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="red">#AA0101</color>
+    <color name="green">#047832</color>
     <color name="laci">#DD06091A</color>
     <color name="light_laci">#0006091A</color>
     <color name="mor">#371D53</color>

@@ -14,7 +14,7 @@
             android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/beyaz"
+            android:background="@color/laci"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -25,21 +25,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:text="22/04/2023"></TextView>
+                android:text="22/04/2023"
+                android:textColor="@color/beyaz"
+                android:layout_marginStart="8dp"></TextView>
 
             <TextView
                 android:id="@+id/income_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="1500"></TextView>
+                android:text="1500"
+                android:textColor="@color/beyaz"></TextView>
 
             <TextView
                 android:id="@+id/expense_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="2000"></TextView>
+                android:text="2000"
+                android:textColor="@color/beyaz"></TextView>
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

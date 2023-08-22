@@ -5,9 +5,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.furkanbostan.moneymanagement.R
 import com.furkanbostan.moneymanagement.database.Transactions
 import com.furkanbostan.moneymanagement.database.TransactionsWithCategoryAndAccount
 import com.furkanbostan.moneymanagement.databinding.ItemDialogBinding
+import com.furkanbostan.moneymanagement.util.setTextColorRes
 
 class DayViewChildAdapter(val context:Context, val transactionList:ArrayList<TransactionsWithCategoryAndAccount>):RecyclerView.Adapter<DayViewChildAdapter.DayViewChildAdapterViewHolder>() {
     class DayViewChildAdapterViewHolder(itemBinding:ItemDialogBinding):RecyclerView.ViewHolder(itemBinding.root) {
@@ -24,6 +26,9 @@ class DayViewChildAdapter(val context:Context, val transactionList:ArrayList<Tra
 
     override fun onBindViewHolder(holder: DayViewChildAdapterViewHolder, position: Int) {
         val temp = transactionList[position]
+        if (temp.transaction.type) holder.binding.amountTv.setTextColorRes(R.color.green)
+        else holder.binding.amountTv.setTextColorRes(R.color.red)
+
         holder.binding.accountTv.text = temp.account.name
         holder.binding.commentTv.text = temp.transaction.note
         holder.binding.amountTv.text = temp.transaction.amount.toString()

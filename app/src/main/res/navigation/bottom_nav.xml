@@ -14,7 +14,11 @@
         android:id="@+id/calendarFragment"
         android:name="com.furkanbostan.moneymanagement.ui.calendarPage.CalendarFragment"
         android:label="fragment_calendar"
-        tools:layout="@layout/fragment_calendar" />
+        tools:layout="@layout/fragment_calendar" >
+        <action
+            android:id="@+id/action_calendarFragment_to_addTransactionFragment"
+            app:destination="@id/addTransactionFragment" />
+    </fragment>
     <fragment
         android:id="@+id/goalsFragment"
         android:name="com.furkanbostan.moneymanagement.ui.goalsPage.GoalsFragment"
@@ -71,4 +75,43 @@
         android:name="com.furkanbostan.moneymanagement.ui.goalsPage.GoalCategoriesFragment"
         android:label="fragment_goal_categories"
         tools:layout="@layout/fragment_goal_categories" />
+    <fragment
+        android:id="@+id/addTransactionFragment"
+        android:name="com.furkanbostan.moneymanagement.ui.transactionRecord.AddTransactionFragment"
+        android:label="fragment_add_transaction"
+        tools:layout="@layout/fragment_add_transaction" >
+        <action
+            android:id="@+id/action_addTransactionFragment_to_calendarFragment"
+            app:destination="@id/calendarFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/calendarViewCalendarFragment"
+        android:name="com.furkanbostan.moneymanagement.ui.calendarPage.CalendarViewCalendarFragment"
+        android:label="fragment_calendar_view_calendar"
+        tools:layout="@layout/fragment_calendar_view_calendar" />
+    <fragment
+        android:id="@+id/dayViewCalendarFragment"
+        android:name="com.furkanbostan.moneymanagement.ui.calendarPage.DayViewCalendarFragment"
+        android:label="fragment_day_view_calendar"
+        tools:layout="@layout/fragment_day_view_calendar" />
+    <fragment
+        android:id="@+id/monthViewCalendarFragment"
+        android:name="com.furkanbostan.moneymanagement.ui.calendarPage.MonthViewCalendarFragment"
+        android:label="fragment_month_view_calendar"
+        tools:layout="@layout/fragment_month_view_calendar" />
+    <dialog
+        android:id="@+id/goalCategoryAddDialog"
+        android:name="com.furkanbostan.moneymanagement.ui.goalsPage.GoalCategoryAddDialog"
+        android:label="goal_category_add_dialog"
+        tools:layout="@layout/goal_category_add_dialog" />
+    <dialog
+        android:id="@+id/goalEditDialog"
+        android:name="com.furkanbostan.moneymanagement.ui.goalsPage.GoalEditDialog"
+        android:label="fragment_goal_edit_dialog"
+        tools:layout="@layout/fragment_goal_edit_dialog" />
+    <fragment
+        android:id="@+id/yearViewCalendarFragment2"
+        android:name="com.furkanbostan.moneymanagement.ui.calendarPage.YearViewCalendarFragment"
+        android:label="fragment_year_view_calendar"
+        tools:layout="@layout/fragment_year_view_calendar" />
 </navigation>

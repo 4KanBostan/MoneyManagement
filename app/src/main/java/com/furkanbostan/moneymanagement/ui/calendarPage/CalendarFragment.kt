@@ -13,7 +13,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 class CalendarFragment : Fragment(){
     private lateinit var binding: FragmentCalendarBinding
     private val fragmentListesi = ArrayList<Fragment>()
-    private val fragmentADları= ArrayList<String>()
+    private val fragmentNames= ArrayList<String>()
     private lateinit var viewPagerAdapter: CalendarViewPagerAdapter
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -46,13 +46,13 @@ class CalendarFragment : Fragment(){
          tabview.getTabAt(1)?.text ="Second"
          tabview.getTabAt(2)?.text ="Thirt"
  */
-        fragmentADları.add("Calendar")
-        fragmentADları.add("Day")
-        fragmentADları.add("Month")
-        fragmentADları.add("Year")
+        fragmentNames.add("Calendar")
+        fragmentNames.add("Day")
+        fragmentNames.add("Month")
+        fragmentNames.add("Year")
 
         TabLayoutMediator(binding.tablayout,binding.viewPager2){tab,position ->
-            tab.text= fragmentADları[position]
+            tab.text= fragmentNames[position]
         }.attach()
     }
 

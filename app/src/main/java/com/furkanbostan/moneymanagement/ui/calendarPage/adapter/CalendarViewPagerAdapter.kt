@@ -7,13 +7,13 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class CalendarViewPagerAdapter(val fragmentListesi: List<Fragment>,fragmentManager: FragmentManager, lifecycle: Lifecycle): FragmentStateAdapter(fragmentManager,lifecycle){
+class CalendarViewPagerAdapter(val fragmentList: List<Fragment>,fragmentManager: FragmentManager, lifecycle: Lifecycle): FragmentStateAdapter(fragmentManager,lifecycle){
     override fun getItemCount(): Int {
-       return fragmentListesi.size
+       return fragmentList.size
     }
 
     override fun createFragment(position: Int): Fragment {
-       return fragmentListesi[position]
+       return fragmentList[position]
     }
 
 

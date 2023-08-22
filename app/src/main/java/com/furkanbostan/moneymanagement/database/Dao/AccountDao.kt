@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import com.furkanbostan.moneymanagement.database.Account
+import com.furkanbostan.moneymanagement.database.Category
 import com.furkanbostan.moneymanagement.database.Goal
 
 @Dao
@@ -23,4 +24,7 @@ interface  AccountDao {
 
     @Query("DELETE FROM account WHERE id = :id")
     suspend fun deleteById(id:Int)
+
+    @Query("SELECT * FROM account WHERE name = :name")
+    suspend fun getCategoryByAccountName(name:String): Account
 }

@@ -24,8 +24,19 @@ class DayViewParentAdapter(val itemList:ArrayList<ParentRecycleView>): RecyclerV
     }
 
     override fun onBindViewHolder(holder: DayViewParentAdapterViewHolder, position: Int) {
+        var incomeCount=0f
+        var expenseCount=0f
         val item = itemList[position]
         holder.binding.dateTv.text= item.date
+        for (parent in itemList){
+            for(trans in parent.itemList){
+                if(trans.transaction.type) incomeCount+=trans.transaction.amount
+                else expenseCount+= trans.transaction.amount
+            }
+        }
+        holder.binding.incomeTv.text=incomeCount.toInt().toString()
+        holder.binding.expenseTv.text= expenseCount.toInt().toString()
+
         holder.binding.childReyclerView.apply {
             layoutManager = LinearLayoutManager(holder.binding.childReyclerView.context,RecyclerView.VERTICAL,false)
             adapter = DayViewChildAdapter(context,item.itemList)

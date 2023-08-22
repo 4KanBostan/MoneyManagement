@@ -9,7 +9,9 @@ import android.view.*
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.children
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.fragment.findNavController
 import com.furkanbostan.moneymanagement.R
 import com.furkanbostan.moneymanagement.database.Account
 import com.furkanbostan.moneymanagement.database.Category
@@ -45,6 +47,7 @@ class CalendarViewCalendarFragment : BaseFragment(),CalendarDialog.OnDateSelecte
     private  var currentDate= MutableLiveData<LocalDate>()
     private val debounceHandler = Handler(Looper.getMainLooper())
     private val calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Istanbul"))
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         binding= FragmentCalendarViewCalendarBinding.inflate(layoutInflater,container,false)
@@ -79,6 +82,9 @@ class CalendarViewCalendarFragment : BaseFragment(),CalendarDialog.OnDateSelecte
         }
         binding.calendarMonthTv.setOnClickListener {
             openCustomDialog()
+        }
+        binding.fabbAdd.setOnClickListener {
+            findNavController().navigate(R.id.action_calendarFragment_to_addTransactionFragment)
         }
             
         super.onViewCreated(view, savedInstanceState)
@@ -349,4 +355,5 @@ class CalendarViewCalendarFragment : BaseFragment(),CalendarDialog.OnDateSelecte
         dialog.window?.setGravity(Gravity.TOP)
         dialog.show()
     }
+
 }

@@ -12,6 +12,9 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+
+        <item name="textInputStyle">@style/MyTextInputStyle</item>
+
     </style>
     
     <style name="BottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
@@ -21,4 +24,11 @@
         <item name="android:background"> @android:color/transparent</item>
         <item name="android:layout_margin">20dp</item>
     </style>
+
+    <style name="MyTextInputStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@drawable/text_input_edit_text_bg</item>
+        <item name="boxStrokeWidth">1.8dp</item>
+    </style>
+
+
 </resources>

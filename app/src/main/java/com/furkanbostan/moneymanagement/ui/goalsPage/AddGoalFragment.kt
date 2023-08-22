@@ -105,16 +105,6 @@ class AddGoalFragment : BaseFragment() {
             datePickerDialog.show()
     }
 
-    private fun getAllGoal(){
-        var list= listOf<Goal>()
-        launch {
-            val dao= ManagDataBase(requireContext()).goalDao()
-            list=dao.getAllGoals()
-            //setRcv(list)
-            itemArray=list as ArrayList<Goal>
-        }
-
-    }
 
     private fun insertGoal(goal: Goal){
         launch {

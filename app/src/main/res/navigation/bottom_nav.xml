@@ -83,12 +83,19 @@
         <action
             android:id="@+id/action_addTransactionFragment_to_calendarFragment"
             app:destination="@id/calendarFragment" />
+        <action
+            android:id="@+id/action_addTransactionFragment_to_calendarViewCalendarFragment"
+            app:destination="@id/calendarViewCalendarFragment" />
     </fragment>
     <fragment
         android:id="@+id/calendarViewCalendarFragment"
         android:name="com.furkanbostan.moneymanagement.ui.calendarPage.CalendarViewCalendarFragment"
         android:label="fragment_calendar_view_calendar"
-        tools:layout="@layout/fragment_calendar_view_calendar" />
+        tools:layout="@layout/fragment_calendar_view_calendar" >
+        <action
+            android:id="@+id/action_calendarViewCalendarFragment_to_addTransactionFragment"
+            app:destination="@id/addTransactionFragment" />
+    </fragment>
     <fragment
         android:id="@+id/dayViewCalendarFragment"
         android:name="com.furkanbostan.moneymanagement.ui.calendarPage.DayViewCalendarFragment"

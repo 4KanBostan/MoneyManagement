@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.furkanbostan.moneymanagement.database.Account
 import com.furkanbostan.moneymanagement.database.Category
 import com.furkanbostan.moneymanagement.database.Transactions
@@ -109,7 +110,9 @@ class IncomeRecordFragment : BaseFragment() {
 
             override fun afterTextChanged(s: Editable?) {
                 if (!s.isNullOrBlank()) {
-                    binding.incomeAccountTextInputEditText.requestFocus()
+                    if (binding.incomeAccountTextInputEditText.text.isNullOrBlank()){
+                        binding.incomeAccountTextInputEditText.requestFocus()
+                    }
                     if (!binding.incomeCategoryTextInputEditText.text.isNullOrBlank()){
                         getCategoryId(binding.incomeCategoryTextInputEditText.text.toString())
                     }
@@ -181,6 +184,8 @@ class IncomeRecordFragment : BaseFragment() {
         launch {
             val dao = ManagDataBase(requireContext()).transactionsDao()
             dao.insert(model)
+            Toast.makeText(requireContext(),"İşlem Başarılı",Toast.LENGTH_SHORT).show()
+            findNavController().popBackStack()
         }
     }
 

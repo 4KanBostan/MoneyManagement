@@ -293,7 +293,7 @@ class CalendarViewCalendarFragment : BaseFragment(),CalendarDialog.OnDateSelecte
         val arraylist:ArrayList<Transactions>
         arraylist= ArrayList()
         val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
-        val dateSplit= today.plusDays(25).format(formatter).toString().split("-")
+        val dateSplit= today.plusDays(10).format(formatter).toString().split("-")
         val dateDay= dateSplit.get(0)
         val dateMonth= dateSplit.get(1)
         val dateYear= dateSplit.get(2)

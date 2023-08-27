@@ -74,14 +74,14 @@ class IncomeRecordFragment : BaseFragment() {
     }
 
     private fun saveTransaction() {
-        val date = binding.incomeNoteTextInputEditText.text.toString()
+        val date = binding.incomeDateTextInputEditText.text.toString()
         val category = binding.incomeCategoryTextInputEditText.text.toString()
         val account = binding.incomeAccountTextInputEditText.text.toString()
         val amount = binding.incomeAmountTextInputEditText.text.toString()
         val note = binding.incomeNoteTextInputEditText.text.toString()
 
 
-        if (category.isNotEmpty() && account.isNotEmpty() && amount.isNotEmpty() && note.isNotEmpty() && date.isNotEmpty()) {
+        if (category.isNotEmpty() && account.isNotEmpty() && amount.isNotEmpty() &&  date.isNotEmpty()) {
 
             val model = Transactions(0,transCategoryId,transAccountId,amount.toFloat(),transDate,note,
                                             transDateDay,transDateMonth,transDateYear,true)
@@ -98,8 +98,6 @@ class IncomeRecordFragment : BaseFragment() {
         transDateMonth = "%02d".format(dateSplit[1].toInt())
         transDateYear = "%04d".format(dateSplit[2].toInt())
         transDate = "$transDateDay-$transDateMonth-$transDateYear"
-
-
     }
 
     private fun listenerEt() {

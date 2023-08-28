@@ -18,6 +18,9 @@ data class Category(
     @ColumnInfo(name = "balance")
     var balance:Float,
     @ColumnInfo(name = "image_url")
-    var image_url:Int
+    var image_url:Int,
+    @ColumnInfo(name = "type")
+    var type:Int
+
 
 )

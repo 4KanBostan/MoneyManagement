@@ -26,4 +26,12 @@ interface CategoryDao {
     @Query("SELECT * FROM category WHERE name = :name")
     suspend fun getCategoryByCtegoryName(name:String):Category
 
+    @Query("SELECT * FROM category WHERE type = 1")
+    suspend fun getAllIncomeCategory():List<Category>
+
+    @Query("SELECT * FROM category WHERE type = 0")
+    suspend fun getAllExpenseCategory():List<Category>
+
+
+
 }

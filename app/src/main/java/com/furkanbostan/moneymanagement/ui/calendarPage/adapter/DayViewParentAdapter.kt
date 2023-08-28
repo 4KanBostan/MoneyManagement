@@ -30,7 +30,7 @@ class DayViewParentAdapter(val itemList:ArrayList<ParentRecycleView>): RecyclerV
         holder.binding.dateTv.text= item.date
         for (parent in itemList){
             for(trans in parent.itemList){
-                if(trans.transaction.type) incomeCount+=trans.transaction.amount
+                if(trans.transaction.type==0) incomeCount+=trans.transaction.amount
                 else expenseCount+= trans.transaction.amount
             }
         }

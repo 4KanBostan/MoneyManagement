@@ -3,6 +3,7 @@ package com.furkanbostan.moneymanagement.database.Dao
 import androidx.room.*
 import com.furkanbostan.moneymanagement.database.Goal
 import com.furkanbostan.moneymanagement.database.GoalAndCategory
+import com.furkanbostan.moneymanagement.database.TransactionsWithCategoryAndAccount
 
 @Dao
 interface GoalDao {
@@ -25,6 +26,8 @@ interface GoalDao {
     @Query("SELECT * FROM goal")
     suspend fun getGoalAndCategory() : List<GoalAndCategory>
 
-
+    @Transaction
+    @Query("SELECT * FROM goal ORDER BY id DESC LIMIT 4")
+    suspend fun getLastGoalAndCategory():List<GoalAndCategory>
 
 }

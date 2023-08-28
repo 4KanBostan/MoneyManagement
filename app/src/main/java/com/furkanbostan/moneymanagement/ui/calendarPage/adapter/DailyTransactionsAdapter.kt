@@ -30,10 +30,10 @@ class DailyTransactionsAdapter(val context:Context,var transactionList: ArrayLis
 
     override fun onBindViewHolder(holder: DailyTransactionsAdapterViewHolder, position: Int) {
         val temp = transactionList[position]
-        if (temp.transaction.type) holder.binding.amountTv.setTextColorRes(R.color.green)
+        if (temp.transaction.type==1) holder.binding.amountTv.setTextColorRes(R.color.green)
         else holder.binding.amountTv.setTextColorRes(R.color.red)
 
-        holder.binding.accountTv.text = temp.account.name
+        holder.binding.accountTv.text = temp.firstAccount.name
         holder.binding.commentTv.text = temp.transaction.note
         holder.binding.amountTv.text = temp.transaction.amount.toString()
         holder.binding.dialogDateTv.text = temp.transaction.date

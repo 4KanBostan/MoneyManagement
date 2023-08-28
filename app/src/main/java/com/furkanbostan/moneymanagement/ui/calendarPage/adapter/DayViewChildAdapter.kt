@@ -26,10 +26,10 @@ class DayViewChildAdapter(val context:Context, val transactionList:ArrayList<Tra
 
     override fun onBindViewHolder(holder: DayViewChildAdapterViewHolder, position: Int) {
         val temp = transactionList[position]
-        if (temp.transaction.type) holder.binding.amountTv.setTextColorRes(R.color.green)
+        if (temp.transaction.type==1) holder.binding.amountTv.setTextColorRes(R.color.green)
         else holder.binding.amountTv.setTextColorRes(R.color.red)
 
-        holder.binding.accountTv.text = temp.account.name
+        holder.binding.accountTv.text = temp.firstAccount.name
         holder.binding.commentTv.text = temp.transaction.note
         holder.binding.amountTv.text = temp.transaction.amount.toString()
         Glide.with(context).load(temp.category.image_url).into(holder.binding.categoryImageView)

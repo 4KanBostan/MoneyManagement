@@ -11,8 +11,13 @@ data class TransactionsWithCategoryAndAccount(
     )
     val category: Category,
     @Relation(
-        parentColumn = "account_id",
+        parentColumn = "first_account_id",
         entityColumn = "id"
     )
-    val account: Account
+    val firstAccount: Account,
+    @Relation(
+        parentColumn = "second_account_id",
+        entityColumn = "id"
+    )
+    val secondAccount: Account
 )

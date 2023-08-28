@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
+import com.furkanbostan.moneymanagement.database.Account
 import com.furkanbostan.moneymanagement.database.Category
 import com.furkanbostan.moneymanagement.database.service.ManagDataBase
 import com.furkanbostan.moneymanagement.databinding.FragmentCategoryDialogBinding
@@ -16,9 +17,8 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
-class CategoryDialog : BottomSheetDialogFragment(),CoroutineScope {
+class CategoryDialog(private val type:Int,private val itemClickListener: (Category) -> Unit) : BottomSheetDialogFragment(),CoroutineScope {
     private lateinit var binding:FragmentCategoryDialogBinding
-    private lateinit var categoryArray:ArrayList<Category>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentCategoryDialogBinding.inflate(inflater,container, false)
@@ -27,26 +27,32 @@ class CategoryDialog : BottomSheetDialogFragment(),CoroutineScope {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getAllCategory()
+
+        if (type==0)getAllExpenseCategory()
+        else getAllIncomeCategory()
+
     }
 
-    private fun getAllCategory() {
+    private fun getAllExpenseCategory() {
         launch {
             val dao= ManagDataBase(requireContext()).categoryDao()
-            setRcv(dao.getAllCategory() as ArrayList<Category>)
+            setRcv(dao.getAllExpenseCategory() as ArrayList<Category>)
+        }
+    }
+    private fun getAllIncomeCategory() {
+        launch {
+            val dao= ManagDataBase(requireContext()).categoryDao()
+            setRcv(dao.getAllIncomeCategory() as ArrayList<Category>)
         }
     }
 
     private fun setRcv(categories: ArrayList<Category>) {
         binding.categoryRecycler.apply {
             layoutManager= GridLayoutManager(requireContext(),2)
-            adapter = CategoryCardAdapter(requireContext(),categories, object: OnItemClickListenerIncome {
-                override fun onItemClick(item: Category) {
-                    val mainFragment = parentFragment as? IncomeRecordFragment
-                    mainFragment?.updateIncomeCategoryEt(item)
-                    dismiss()
-                }
-            })
+            adapter = CategoryCardAdapter(requireContext(),categories){ categoryItem ->
+                dismiss()
+                itemClickListener(categoryItem)
+            }
         }
 
     }

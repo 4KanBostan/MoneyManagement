@@ -148,7 +148,7 @@ class DayViewCalendarFragment : BaseFragment(), CalendarDialog.OnDateSelectedLis
         var expenseCount= 0f
         var balanceCount = 0f
         for (i in value){
-            if(i.transaction.type){
+            if(i.transaction.type==1){
                 incomeCount+= i.transaction.amount
             }
             else expenseCount+= i.transaction.amount

@@ -186,7 +186,7 @@ class CalendarViewCalendarFragment : BaseFragment(),CalendarDialog.OnDateSelecte
                 val formatDate= "%02d".format(date.dayOfMonth)
                 if (groupedTransactions.containsKey(formatDate)){
                      for (i in groupedTransactions.getValue(formatDate)){
-                         if (i.type) incomeCount += i.amount
+                         if (i.type==1) incomeCount += i.amount
                          else expenseCount += i.amount
                      }
                     totalCount = incomeCount - expenseCount
@@ -297,20 +297,20 @@ class CalendarViewCalendarFragment : BaseFragment(),CalendarDialog.OnDateSelecte
         val dateDay= dateSplit.get(0)
         val dateMonth= dateSplit.get(1)
         val dateYear= dateSplit.get(2)
-        arraylist.add(Transactions(0,2,2,200f,today.plusDays(28).format(formatter).toString(),
-            "kendi hedefim",dateDay,dateMonth,dateYear,false))
-        arraylist.add(Transactions(0,1,2,200f,today.plusDays(7).format(formatter).toString(),
-            "kendi hedefim",dateDay,dateMonth,dateYear,false))
+        arraylist.add(Transactions(0,2,2,1,200f,today.plusDays(28).format(formatter).toString(),
+            "kendi hedefim",dateDay,dateMonth,dateYear,0))
+        arraylist.add(Transactions(0,1,2,1,200f,today.plusDays(7).format(formatter).toString(),
+            "kendi hedefim",dateDay,dateMonth,dateYear,1))
 
-        arraylist.add(Transactions(0,2,1,200f,today.minusDays(11).format(formatter).toString(),
-            "kendi hedefim",dateDay,dateMonth,dateYear,false))
-        arraylist.add(Transactions(0,2,2,200f,today.minusDays(28).format(formatter).toString(),
-            "kendi hedefim",dateDay,dateMonth,dateYear,false))
-        arraylist.add(Transactions(0,1,2,200f,today.minusDays(7).format(formatter).toString(),
-            "kendi hedefim",dateDay,dateMonth,dateYear,false))
+        arraylist.add(Transactions(0,2,1,1,200f,today.minusDays(11).format(formatter).toString(),
+            "kendi hedefim",dateDay,dateMonth,dateYear,0))
+        arraylist.add(Transactions(0,2,2,1,200f,today.minusDays(28).format(formatter).toString(),
+            "kendi hedefim",dateDay,dateMonth,dateYear,1))
+        arraylist.add(Transactions(0,1,2,1,200f,today.minusDays(7).format(formatter).toString(),
+            "kendi hedefim",dateDay,dateMonth,dateYear,0))
 
-        arraylist.add(Transactions(0,2,1,200f,today.minusDays(11).format(formatter).toString(),
-            "kendi hedefim",dateDay,dateMonth,dateYear,false))
+        arraylist.add(Transactions(0,2,1,1,200f,today.minusDays(11).format(formatter).toString(),
+            "kendi hedefim",dateDay,dateMonth,dateYear,1))
 
         launch {
             val dao= ManagDataBase(requireContext()).transactionsDao()
@@ -328,7 +328,7 @@ class CalendarViewCalendarFragment : BaseFragment(),CalendarDialog.OnDateSelecte
     }
 
     private fun insertCateg(){
-        val cat= Category(0,"Araba",0f,0f,0f,R.drawable.car)
+        val cat= Category(0,"Araba",0f,0f,0f,R.drawable.car,0)
         launch {
             val dao=ManagDataBase(requireContext()).categoryDao()
             dao.insert(cat)

@@ -41,19 +41,27 @@ class IncomeRecordFragment : BaseFragment() {
         listenerEt()
 
         binding.incomeCategoryTextInputEditText.setOnClickListener{
-            val bottomSheetFragment = CategoryDialog()
-            bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
+            val bottomSheetFragment = CategoryDialog(1){ selectedAccount ->
+                // Seçilen hesabın adını alın ve accountEditText'e yazdırın
+                binding.incomeCategoryTextInputEditText.setText(selectedAccount.name)
+            }
+            bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
         }
 
         binding.incomeAccountTextInputEditText.setOnFocusChangeListener { v, hasFocus ->
             if (hasFocus) {
-                val bottomSheetFragment = AccountDialog()
-                bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
+                val bottomSheetFragment = AccountDialog(){ selectedAccount ->
+                    // Seçilen hesabın adını alın ve accountEditText'e yazdırın
+                    binding.incomeAccountTextInputEditText.setText(selectedAccount.name)
+                }
+                bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
             }
         }
 
         binding.incomeAccountTextInputEditText.setOnClickListener {
-            val bottomSheetFragment = AccountDialog()
+            val bottomSheetFragment = AccountDialog(){ selectedAccount ->
+                binding.incomeAccountTextInputEditText.setText(selectedAccount.name)
+            }
             bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
         }
 
@@ -69,8 +77,6 @@ class IncomeRecordFragment : BaseFragment() {
         binding.incomeSaveButton.setOnClickListener {
             saveTransaction()
         }
-
-
     }
 
     private fun saveTransaction() {
@@ -83,8 +89,8 @@ class IncomeRecordFragment : BaseFragment() {
 
         if (category.isNotEmpty() && account.isNotEmpty() && amount.isNotEmpty() &&  date.isNotEmpty()) {
 
-            val model = Transactions(0,transCategoryId,transAccountId,amount.toFloat(),transDate,note,
-                                            transDateDay,transDateMonth,transDateYear,true)
+            val model = Transactions(0,transCategoryId,transAccountId,null,amount.toFloat(),transDate,note,
+                                            transDateDay,transDateMonth,transDateYear,1)
             insertTransaction(model)
         } else {
             Toast.makeText(requireContext(),"Lütfen tüm alanları doldurunuz!",Toast.LENGTH_LONG).show()
@@ -138,9 +144,6 @@ class IncomeRecordFragment : BaseFragment() {
 
     fun updateIncomeCategoryEt(item: Category) {
         binding.incomeCategoryTextInputEditText.setText(item.name)
-    }
-    fun updateIncomeAccountEt(item: Account) {
-        binding.incomeAccountTextInputEditText.setText(item.name)
     }
 
     private fun datepicker(){

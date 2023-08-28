@@ -20,7 +20,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
-class AccountDialog : BottomSheetDialogFragment(),CoroutineScope {
+class AccountDialog(private val itemClickListener: (Account) -> Unit) : BottomSheetDialogFragment(),CoroutineScope {
     private lateinit var binding: FragmentAccountDialogBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -44,13 +44,10 @@ class AccountDialog : BottomSheetDialogFragment(),CoroutineScope {
     private fun setRcv(accounts: ArrayList<Account>) {
         binding.accountsRecycler.apply {
             layoutManager= GridLayoutManager(requireContext(),2)
-            adapter = AccountCardAdapter(requireContext(),accounts, object: AccountDialog.OnItemClickListenerExpense {
-                override fun onItemClick(item: Account) {
-                    val mainFragment = parentFragment as? IncomeRecordFragment
-                    mainFragment?.updateIncomeAccountEt(item)
-                    dismiss()
-                }
-            })
+            adapter = AccountCardAdapter(requireContext(),accounts){ accountItem ->
+                dismiss()
+                itemClickListener(accountItem)
+            }
         }
     }
 

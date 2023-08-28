@@ -12,7 +12,7 @@ import com.furkanbostan.moneymanagement.databinding.ItemGoalCardBinding
 import com.furkanbostan.moneymanagement.ui.transactionRecord.AccountDialog
 import com.furkanbostan.moneymanagement.ui.transactionRecord.CategoryDialog
 
-class AccountCardAdapter (val context: Context, val itemList:ArrayList<Account>, val itemClickListener: AccountDialog.OnItemClickListenerExpense): RecyclerView.Adapter<AccountCardAdapter.AccountCardAdapterViewHolder>() {
+class AccountCardAdapter (val context: Context, val itemList:ArrayList<Account>, private val itemClickListener: (Account) -> Unit): RecyclerView.Adapter<AccountCardAdapter.AccountCardAdapterViewHolder>() {
     class AccountCardAdapterViewHolder(itemBinding: ItemGoalCardBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
         val binding = itemBinding
@@ -32,7 +32,7 @@ class AccountCardAdapter (val context: Context, val itemList:ArrayList<Account>,
         holder.binding.cardGoalName.text = temp.name
         Glide.with(context).load(R.drawable.banking_card).into(holder.binding.goalCardImg)
         holder.binding.goalCardItemLayout.setOnClickListener {
-            itemClickListener.onItemClick(temp)
+            itemClickListener(temp)
         }
     }
 }

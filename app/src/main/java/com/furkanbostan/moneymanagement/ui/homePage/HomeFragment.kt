@@ -78,22 +78,11 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun getLastGoals(){
-        var list= listOf<GoalAndCategory>()
         goalsList= ArrayList()
         launch {
             val dao = ManagDataBase(requireContext()).goalDao()
-            list = dao.getGoalAndCategory()
-           // goalsList= list as ArrayList<GoalAndCategory>
-            if (list.isEmpty()){
-
-            }
-            else if (list.size<6){
-                goalSetRcv(goalsList)
-            }else{
-                goalsList= ArrayList(list.subList(list.size-5,list.size-1))
-                goalSetRcv(goalsList)
-            }
-
+            goalsList = dao.getLastGoalAndCategory() as ArrayList<GoalAndCategory>
+            goalSetRcv(goalsList)
         }
 
     }

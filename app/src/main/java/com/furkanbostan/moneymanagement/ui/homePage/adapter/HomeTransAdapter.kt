@@ -26,7 +26,7 @@ class HomeTransAdapter(val context:Context, val itemArray:ArrayList<Transactions
 
     override fun onBindViewHolder(holder: HomeTransAdapetrViewHolder, position: Int) {
         val temp = itemArray[position]
-        holder.binding.accountHomeTv.text = temp.account.name
+        holder.binding.accountHomeTv.text = temp.firstAccount.name
         holder.binding.commentHomeTv.text = temp.transaction.note
         holder.binding.amountHomeTv.text = temp.transaction.amount.toString()
         Glide.with(context).load(temp.category.image_url).into(holder.binding.categoryImage)

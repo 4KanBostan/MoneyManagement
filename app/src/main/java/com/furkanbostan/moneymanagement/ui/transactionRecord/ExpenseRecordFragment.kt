@@ -40,8 +40,8 @@ class ExpenseRecordFragment : BaseFragment() {
         listenerEt()
 
         binding.expenseCategoryTextInputEditText.setOnClickListener{
-            val bottomSheetFragment = CategoryDialog(0){ selectedAccount ->
-                binding.expenseCategoryTextInputEditText.setText(selectedAccount.name)
+            val bottomSheetFragment = CategoryDialog(0){ selectedCategory ->
+                binding.expenseCategoryTextInputEditText.setText(selectedCategory.name)
             }
             bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
         }

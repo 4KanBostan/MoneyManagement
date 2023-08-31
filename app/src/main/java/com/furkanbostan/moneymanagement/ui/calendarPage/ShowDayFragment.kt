@@ -91,8 +91,10 @@ class ShowDayFragment(val calendar:Calendar) :BottomSheetDialogFragment(),Corout
         var expenseCount= 0f
 
         for (i in list){
-            if (i.transaction.type==0) incomeCount+=i.transaction.amount
-            else expenseCount+= i.transaction.amount
+            if (i.transaction.type!==3){
+                if (i.transaction.type==0) incomeCount+=i.transaction.amount
+                else expenseCount+= i.transaction.amount
+            }
         }
         binding.incomeTvShowDay.text=incomeCount.toInt().toString()
         binding.expenseTvShowDay.text=expenseCount.toInt().toString()

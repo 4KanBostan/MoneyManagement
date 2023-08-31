@@ -28,12 +28,14 @@ class DayViewParentAdapter(val itemList:ArrayList<ParentRecycleView>): RecyclerV
         var expenseCount=0f
         val item = itemList[position]
         holder.binding.dateTv.text= item.date
-        for (parent in itemList){
-            for(trans in parent.itemList){
+
+        for(trans in item.itemList){
+            if (trans.transaction.type!==3){
                 if(trans.transaction.type==0) incomeCount+=trans.transaction.amount
                 else expenseCount+= trans.transaction.amount
             }
         }
+
         holder.binding.incomeTv.text=incomeCount.toInt().toString()
         holder.binding.expenseTv.text= expenseCount.toInt().toString()
 

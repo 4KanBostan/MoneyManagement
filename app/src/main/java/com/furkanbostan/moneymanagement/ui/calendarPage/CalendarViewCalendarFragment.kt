@@ -186,8 +186,10 @@ class CalendarViewCalendarFragment : BaseFragment(),CalendarDialog.OnDateSelecte
                 val formatDate= "%02d".format(date.dayOfMonth)
                 if (groupedTransactions.containsKey(formatDate)){
                      for (i in groupedTransactions.getValue(formatDate)){
-                         if (i.type==1) incomeCount += i.amount
-                         else expenseCount += i.amount
+                         if (i.type!==3){
+                             if (i.type==1) incomeCount += i.amount
+                             else expenseCount += i.amount
+                         }
                      }
                     totalCount = incomeCount - expenseCount
                     incomeTv.text = incomeCount.toInt().toString()
@@ -320,7 +322,7 @@ class CalendarViewCalendarFragment : BaseFragment(),CalendarDialog.OnDateSelecte
 
 
     private fun insertAcc(){
-        val acc= Account(0,"Banka Kartı",500f,100f,400f)
+        val acc= Account(0,"Kredi Kartı",500f,100f,400f)
         launch {
             val dao= ManagDataBase(requireContext()).accountDao()
             dao.insert(acc)

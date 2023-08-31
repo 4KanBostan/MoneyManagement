@@ -26,9 +26,18 @@ class HomeTransAdapter(val context:Context, val itemArray:ArrayList<Transactions
 
     override fun onBindViewHolder(holder: HomeTransAdapetrViewHolder, position: Int) {
         val temp = itemArray[position]
-        holder.binding.accountHomeTv.text = temp.firstAccount.name
+
+        if (temp.transaction.type==3){
+            holder.binding.accountHomeTv.text=temp.firstAccount.name+" -> "+temp.secondAccount!!.name
+            holder.binding.amountHomeTv.text = "0"
+        }else {
+            holder.binding.accountHomeTv.text = temp.firstAccount.name
+            holder.binding.amountHomeTv.text = temp.transaction.amount.toString()
+        }
         holder.binding.commentHomeTv.text = temp.transaction.note
-        holder.binding.amountHomeTv.text = temp.transaction.amount.toString()
-        Glide.with(context).load(temp.category.image_url).into(holder.binding.categoryImage)
+        if (temp.transaction.category_id==null){
+            Glide.with(context).load(R.drawable.transfer).into(holder.binding.categoryImage)
+        }else Glide.with(context).load(temp.category!!.image_url).into(holder.binding.categoryImage)
+
     }
 }

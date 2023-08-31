@@ -41,9 +41,9 @@ class IncomeRecordFragment : BaseFragment() {
         listenerEt()
 
         binding.incomeCategoryTextInputEditText.setOnClickListener{
-            val bottomSheetFragment = CategoryDialog(1){ selectedAccount ->
+            val bottomSheetFragment = CategoryDialog(1){ selectedCategory ->
                 // Seçilen hesabın adını alın ve accountEditText'e yazdırın
-                binding.incomeCategoryTextInputEditText.setText(selectedAccount.name)
+                binding.incomeCategoryTextInputEditText.setText(selectedCategory.name)
             }
             bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
         }

@@ -9,7 +9,7 @@ data class TransactionsWithCategoryAndAccount(
         parentColumn = "category_id",
         entityColumn = "id"
     )
-    val category: Category,
+    val category: Category?,
     @Relation(
         parentColumn = "first_account_id",
         entityColumn = "id"
@@ -19,5 +19,5 @@ data class TransactionsWithCategoryAndAccount(
         parentColumn = "second_account_id",
         entityColumn = "id"
     )
-    val secondAccount: Account
+    val secondAccount: Account?
 )

@@ -10,7 +10,7 @@ data class Transactions(
     @ColumnInfo(name = "id")
     var id:Int=0,
     @ColumnInfo(name = "category_id")
-    var category_id:Int,
+    var category_id:Int?,
     @ColumnInfo(name = "first_account_id")
     var first_account_id:Int,
     @ColumnInfo(name = "second_account_id")
